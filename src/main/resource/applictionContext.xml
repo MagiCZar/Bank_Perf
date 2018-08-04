@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <!-- 注解 -->
+    <context:annotation-config />
+    <!--扫描-->
+    <context:component-scan base-package="com.bank">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <!-- 导入多个Properties配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!--要是有多个配置文件，只需在这里继续添加即可 -->
+                <value>classpath:datasource.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 加载数据源组件 -->
+    <import resource="classpath:datasource.xml" />
+
+    <!--注入spring容器-->
+    <!--<bean id="loginDao" class="com.bank.dao.Impl.LoginDaoImpll" p:sessionFactory-ref="sessionFactory"/>-->
+    <!--<bean id="loginService" class="com.bank.service.Impl.LoginServiceImpl" p:userDao-ref="loginDao"/>-->
+</beans>
