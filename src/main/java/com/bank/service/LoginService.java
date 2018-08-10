@@ -6,5 +6,6 @@ import com.bank.bean.Login;
  * Created by CZ on 2018/8/2.
  */
 public interface LoginService {
-    public int login(Login user);
+    int login(Login user);
+    void sign(int id);
 }

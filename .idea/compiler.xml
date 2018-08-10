@@ -9,8 +9,5 @@
         <module name="Bank_Perf" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Bank_Perf" target="1.7" />
-    </bytecodeTargetLevel>
   </component>
 </project>

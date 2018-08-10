@@ -1,13 +1,14 @@
 package com.bank.bean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by CZ on 2018/8/2.
  */
 @Entity
 @Table(name = "user", schema = "bankperf")
-public class Login {
+public class Login implements Serializable {
     private int id;
     private String password;
 

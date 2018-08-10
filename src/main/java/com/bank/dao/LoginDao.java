@@ -7,4 +7,5 @@ import com.bank.bean.Login;
  */
 public interface LoginDao {
     int check(Login user);
+    void sign(int id);
 }

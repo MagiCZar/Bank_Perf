@@ -5,6 +5,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
@@ -15,66 +16,114 @@
     http://www.springframework.org/schema/jee
     http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
     http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <context:property-placeholder location="classpath:db.properties" />
+    <context:property-placeholder location="classpath:db.properties"/>
 
     <!--配置数据源 这里是使用的是c3p0连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver" />  <!--数据库连接驱动-->
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/BankPerf?useUnicode=true" />     <!--数据库地址-->
-        <property name="user" value="root" />   <!--用户名-->
-        <property name="password" value="123456" />   <!--密码-->
-        <property name="maxPoolSize" value="40" />      <!--最大连接数-->
-        <property name="minPoolSize" value="1" />       <!--最小连接数-->
-        <property name="initialPoolSize" value="10" />      <!--初始化连接池内的数据库连接-->
-        <property name="maxIdleTime" value="20" />  <!--最大空闲时间-->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>  <!--数据库连接驱动-->
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/BankPerf?useUnicode=true"/>     <!--数据库地址-->
+        <property name="user" value="root"/>   <!--用户名-->
+        <property name="password" value="123456"/>   <!--密码-->
+        <property name="maxPoolSize" value="40"/>      <!--最大连接数-->
+        <property name="minPoolSize" value="1"/>       <!--最小连接数-->
+        <property name="initialPoolSize" value="10"/>      <!--初始化连接池内的数据库连接-->
+        <property name="maxIdleTime" value="20"/>  <!--最大空闲时间-->
     </bean>
 
     <!--配置session工厂-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.bank" />
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.bank.bean"/>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">update</prop> <!--hibernate根据实体自动生成数据库表-->
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>   <!--指定数据库方言-->
                 <prop key="hibernate.show_sql">true</prop>     <!--在控制台显示执行的数据库操作语句-->
                 <prop key="hibernate.format_sql">true</prop>
+                <prop key="connection.autocommit">true</prop>
+                <prop key="current_session_context_class">thread</prop>  <!--多线程处理hibernate session-->
                 <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/bankperf</prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>     <!--在控制台显示执行的数据哭操作语句（格式）-->
             </props>
         </property>
     </bean>
 
+    <!--&lt;!&ndash; 表示JPA Repository所在的包 &ndash;&gt;-->
+    <!--<jpa:repositories base-package="com.bank.dao"/>-->
+
+    <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+        <!--<property name="persistenceUnitName" value="defaultPersistenceUnit"/>-->
+        <!--<property name="packagesToScan" value="com.bank.bean"/>-->
+        <!--<property name="jpaVendorAdapter">-->
+            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>-->
+        <!--</property>-->
+        <!--<property name="jpaProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>-->
+                <!--<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/bankperf?useSSL=false</prop>-->
+                <!--<prop key="hibernate.connection.username">root</prop>-->
+                <!--<prop key="hibernate.connection.password">123456</prop>-->
+                <!--<prop key="hibernate.show_sql">false</prop>-->
+                <!--<prop key="hibernate.connection.useUnicode">true</prop>-->
+                <!--<prop key="hibernate.connection.characterEncoding">UTF-8</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+                <!--<prop key="hibernate.use_sql_comments">true</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                <!--<prop key="hibernate.connection.autoReconnect">true</prop>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>-->
+                <!--<prop key="connection.autoReconnectForPools">true</prop>-->
+                <!--<prop key="connection.is-connection-validation-required">true</prop>-->
+
+                <!--<prop key="hibernate.c3p0.validate">true</prop>-->
+                <!--<prop key="hibernate.connection.provider_class">-->
+                    <!--org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider-->
+                <!--</prop>-->
+                <!--<prop key="hibernate.c3p0.min_size">5</prop>-->
+                <!--<prop key="hibernate.c3p0.max_size">600</prop>-->
+                <!--<prop key="hibernate.c3p0.timeout">1800</prop>-->
+                <!--<prop key="hibernate.c3p0.max_statements">50</prop>-->
+                <!--<prop key="hibernate.c3p0.preferredTestQuery">SELECT 1;</prop>-->
+                <!--<prop key="hibernate.c3p0.testConnectionOnCheckout">true</prop>-->
+                <!--<prop key="hibernate.c3p0.idle_test_period">3000</prop>-->
+                <!--<prop key="javax.persistence.validation.mode">none</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+
     <!-- Spring接管Hibernate CRUD操作 -->
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- 事务配置 声明式事务-->
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- 配置事务特性，配置add，delete，update开始的方法，事务传播特性为required -->
+    <!-- 事务 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- REQUIRED 表示 如果存在一个事务，则支持当前事务。如果没有事务则开启 -->
-            <tx:method name="add*" propagation="REQUIRED" />
-            <tx:method name="delete*" propagation="REQUIRED" />
-            <tx:method name="update*" propagation="REQUIRED" />
-            <tx:method name="*" read-only="true" />
+            <tx:method name="*"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
-
-    <!-- 配置那些类的方法进行事务管理，当前com.ssh2.basedao.impl包中的子包， 类中所有方法需要，还需要参考tx:advice的设置 -->
-    <aop:config>
-        <aop:pointcut id="allManagerMethod"
-                      expression="execution(* com.bank.service.*.*(..))" />
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
-    </aop:config>
+    <!-- 事务入口 -->
+    <!--<aop:config>-->
+    <!--<aop:pointcut id="allServiceMethod" expression="execution(* com.bank.service.*Service*.*(..))"/>-->
+    <!--<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>-->
+    <!--</aop:config>-->
 
 
     <!-- 使用annotation定义事务 -->

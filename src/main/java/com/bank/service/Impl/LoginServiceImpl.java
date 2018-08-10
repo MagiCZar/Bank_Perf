@@ -18,6 +18,12 @@ public class LoginServiceImpl implements LoginService {
         return userDao.check(user);
     }
 
+    @Override
+    @Transactional
+    public void sign(int id) {
+        userDao.sign(id);
+    }
+
     @Autowired
     private LoginDao userDao;
 

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegisterServiceImpl implements RegisterService {
     @Transactional
     @Override
-    public boolean add(int id) {
+    public int add(int id) {
         return registerDao.add(id);
     }
 
