@@ -18,11 +18,11 @@ public class MngMainController {
     public ModelAndView register(@RequestParam int id, ModelAndView model){
         int result = register.add(id);
         if (result != 0) {
-            model.setViewName("register");
+            model.setViewName("WEB-INF/jsp/register");
             model.addObject("id",result);
             return model;
         }else {
-            model.setViewName("error");
+            model.setViewName("WEB-INF/jsp/error");
             return model;
         }
     }

@@ -1,14 +1,14 @@
 package com.bank.controller;
 
+import com.bank.bean.Customer;
 import com.bank.service.ExcelService;
+import com.bank.util.ListUtil;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,16 +19,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by CZ on 2018/8/5.
  */
 @Controller
+@RequestMapping(value = "/success")
 public class EmpMainController {
-    @RequestMapping(value = "/success/excel", method = RequestMethod.POST)
+    @RequestMapping(value = "/excel", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public ModelAndView Excel(@RequestParam(value="file") MultipartFile file,
-                              ModelAndView modelAndView) throws IOException {
+    public List<Customer> Excel(@RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
 //        try {
 //            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -68,21 +69,25 @@ public class EmpMainController {
 //        }
 //        fileChooser.showOpenDialog(null);
 //        File file = fileChooser.getSelectedFile();
-        modelAndView.setViewName("success");
-        if(!file.isEmpty()){
-//            CommonsMultipartFile commonsmultipartfile = (CommonsMultipartFile) file;
-//            DiskFileItem diskFileItem = (DiskFileItem) commonsmultipartfile.getFileItem();
-//            File f = diskFileItem.getStoreLocation();
+//        System.out.println(id);
+//        int uid = Integer.parseInt(id);
+//        modelAndView.setViewName("success");
+        List<Customer> list = new ArrayList<Customer>();
+        if(file != null){
+            int id = Integer.parseInt((file.getOriginalFilename()).substring(0,5));
+            System.out.println(id);
             File f = new File("D:/trans.xlsx");
             FileUtils.copyInputStreamToFile(file.getInputStream(),f);
-            List list = excelService.uplode(f);
-            modelAndView.addObject("list",list);
+            list = ListUtil.listTrans(id,excelService.uplode(f,id));
+//            System.out.println(list);
+//            modelMap.addAttribute("userList",list);
+//            modelAndView.addObject("list",list);
 //            System.out.println("--------------------------------------");
 //            System.out.println(list.size());
 //            System.out.println("--------------------------------------");
 //            System.out.println("转换之后的文件："+file);
         }
-        return modelAndView;
+        return list;
     }
 
 

@@ -24,9 +24,9 @@ public class ExcelServiceImpl implements ExcelService {
     //导入文件并写入数据库
     @Transactional
     @Override
-    public List uplode(File file) {
+    public List uplode(File file,int id) {
         List list;
-        list = read(file);
+        list = read(file,id);
         if (list == null){
             return null;
         }else {
@@ -36,7 +36,7 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
     //读取文件
-    private List read(File file){
+    private List read(File file,int id){
         List<List> list = new ArrayList<List>();
         String suffix = file.getName().substring(file.getName().lastIndexOf(".")+1);
         Workbook wb;
@@ -75,8 +75,8 @@ public class ExcelServiceImpl implements ExcelService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return excelDao.update(list);
+        System.out.println(list);
+        return excelDao.update(list,id);
     }
 
 //    获取单元格内的值

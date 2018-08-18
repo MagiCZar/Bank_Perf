@@ -20,8 +20,8 @@ import java.util.List;
 @Repository("excelDao")
 public class ExcelDaoImpl implements ExcelDao {
     @Override
-    public List update(List<List> list) {
-        int id = Integer.parseInt(list.get(0).get(0).toString())/1000;
+    public List update(List<List> list,int id) {
+//        int id = Integer.parseInt(list.get(0).get(0).toString())/1000;
         Date date = new Date(Calendar.getInstance().getTimeInMillis());
             switch (id/1000){
                 case 11:

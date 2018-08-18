@@ -7,5 +7,5 @@ import java.util.List;
  * Created by CZ on 2018/8/5.
  */
 public interface ExcelService {
-    List uplode(File file);
+    List uplode(File file,int id);
 }

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by CZ on 2018/8/2.
  */
@@ -22,6 +25,12 @@ public class LoginServiceImpl implements LoginService {
     @Transactional
     public void sign(int id) {
         userDao.sign(id);
+    }
+
+    @Override
+    @Transactional
+    public List cus(int id) {
+        return userDao.cus(id);
     }
 
     @Autowired
