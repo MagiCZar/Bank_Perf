@@ -1,0 +1,306 @@
+<html>
+<head>
+	<link rel="stylesheet" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" href="./css/bootstrap-table.css"/>
+
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.js"></script>
+	<script src="./js/bootstrap-table.js"></script>
+	<script src="./js/bootstrap-table-export.js"></script>
+	<script src="./js/jquery.base64.js"></script>
+	<script src="./js/tableExport.js"></script>
+
+</head>
+
+<body>
+<div id="content">
+	<div style="text-align: right">
+		可选导出文件格式: ['csv', 'txt', 'xml','excel','sql','json']
+	</div>
+	<div id="content-body">
+		<div id="reportTableDiv" class="span10">
+			<table id="reportTable">
+			</table>
+		</div>
+	</div>
+</div>
+
+<div>
+        <form id="form1" action="/success/excel" target="frame1" method="post" enctype="multipart/form-data">
+            <input type="file" name="file"> 
+            <input type="button" value="上传" onclick="upload()">
+        </form>
+         <iframe name="frame1" frameborder="0" height="40"></iframe>
+    </div>
+
+
+
+
+<script type="text/javascript">
+
+        function upload() {
+            $("#form1").submit();
+            var t = setInterval(function() {
+                //获取iframe标签里body元素里的文字。即服务器响应过来的"上传成功"或"上传失败"
+                var word = $("iframe[name='frame1']").contents().find("body").text();
+                if (word != "") {
+                    alert(word);        //弹窗提示是否上传成功
+                    clearInterval(t);   //清除定时器
+                }
+            }, 1000);
+        }
+        
+
+    $(function () {
+        $('#reportTable').bootstrapTable({
+            method: 'get',
+            url:'',
+            datatype:'json',
+            contentType:'application/json',
+            cache: false,
+            height: 800,//改变table的高度，!!!并不是实际大小
+            striped: true,
+            pagination: true,
+            pageSize: 20,//每页默认数据量
+            pageNumber: 1,//默认第一页
+            pageList: [10, 20, 50, 100, 200, 500],
+            search: true,//搜索框
+            showColumns: true,
+            showRefresh: true,
+            showExport: true,
+            exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
+            search: true,
+            clickToSelect: true,
+            columns: [{
+                field: "Swift_Number",//Json  KEY
+                title: "流水号",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "Customer_name",
+                title: "客户名字",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "Customer_phone",
+                title: "客户电话",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "Money",
+                title: "金额",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "Status",
+                title: "状态",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, ],
+            data: [{                //Json data
+                "Swift_Number": "20150801001",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801002",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801003",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801004",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801005",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801006",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801007",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801008",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "20150801009",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010010",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },{                //Json data
+                "Swift_Number": "201508010011",
+                "Customer_name": "王大锤",
+                "Customer_phone": "15575956200",
+                "Money": "50000",
+                "Status": "100014",
+                "State_update_time": "20150801"
+            },
+            ],
+            onPageChange: function (size, number) {
+                //$("#pageSizeInput").val(size);
+                //$("#pageNumberInput").val(number);
+
+                //var form = $('#tableForm');
+                //form.action= '${base}/showReport';
+                //form.submit();
+            },
+            //onSort: function (name, order) {
+            // },
+            //formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            //	return '';
+            // },
+            //formatRecordsPerPage: function () {
+            //	return '';
+            //  },
+            formatNoMatches: function () {
+                return '无符合条件的记录';
+            }
+        });
+
+        $(window).resize(function () {
+            $('#reportTable').bootstrapTable('resetView');
+        });
+    });
+
+</script>
+
+<!--<div style="margin-left:20px;"><h4>
+	When resize the window, the table header does not adjust automatically, how to solve it?<br/>
+	When you set the height of bootstrap table, the fixed header feature is automatically enabled, <br/>
+	that is what cause the problem, you need to listen the resize event of window and use the <br/>
+	resetView method to solve this problem, code example:<br/>
+	<br/>
+	$(function () {<br/>
+	&nbsp;&nbsp; $('#tableId').bootstrapTable(); // init via javascript<br/>
+	<br/>
+	&nbsp;&nbsp; $(window).resize(function () {<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp; $('#tableId').bootstrapTable('resetView');<br/>
+	&nbsp;&nbsp; });<br/>
+	});<br/>
+</h4></div>
+-->
+</body>
+
+</html>

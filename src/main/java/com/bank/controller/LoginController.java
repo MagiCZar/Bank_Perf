@@ -36,6 +36,7 @@ public class LoginController {
             }
             model.setViewName("/success");
             model.addObject("id",id);
+//            System.out.println("\n \t提交表单\n");
             return model;
         }else {
             model.setViewName("login");

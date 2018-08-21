@@ -5,9 +5,11 @@ import com.bank.service.InforUpdateService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
 public class InforUpdateServiceImpl implements InforUpdateService {
     @Override
     public String passUpdate(int id, String pass) {

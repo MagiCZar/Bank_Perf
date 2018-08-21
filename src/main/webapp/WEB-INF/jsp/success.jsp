@@ -42,6 +42,7 @@
 </head>
 
 <body>
+<h3>hello,${id}</h3>
 <div id="content">
     <div style="text-align: right">
         可选导出文件格式: ['csv', 'txt', 'xml','excel','sql','json']
@@ -70,7 +71,7 @@
             function upload() {
                 var sub = $('#submit');
                 sub.click(function (e) {
-                    if ($("input[type='file']").val()!=="") {
+                    // if ($("input[type='file']").val()!=="") {
                         var data = new FormData($('#form1')[0]);
                         e.preventDefault();
                         $.ajax({
@@ -93,112 +94,114 @@
                                 //         }
                                 //     }
                                 // })
+                                $('#form1')[0].reset();
                                 obj = eval(data);
                                 console.log(obj);
+                                $('#reportTable').bootstrapTable('destroy');
+                                $('#reportTable').bootstrapTable(
+                                    {
+                                        data:obj,
+                                        height:$(window).height()-100,
+                                        toolbar:'#toolbar',
+                                        striped:true,
+                                        pagination : true,
+                                        pageNumber : 1,
+                                        pageSize : 10,
+                                        pageList : [ 5, 10, 20 ],
+                                        search : true,
+                                        searchAlign : 'left',
+                                        //showRefresh: true,
+                                        showExport : true, //是否显示导出
+                                        exportDataType : "selected", //basic', 'all', 'selected'.
+                                        sidePagination : "client",
+                                        editable : true,
+                                        showColumns : true,
+                                        clickToSelect : true,
+                                        showToggle : true, //是否显示详细视图和列表视图的切换按钮
+                                        cardView : false, //是否显示详细视图
+                                        detailView : false,
+                                        minimunCountColumns : 2,
+                                        // rowStyle : function(row, index) {
+                                        //     //这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
+                                        //     var strclass = "";
+                                        //     if (row.ORDER_STATUS == "待排产") {
+                                        //         strclass = 'success';//还有一个active
+                                        //     } else if (row.ORDER_STATUS == "已删除") {
+                                        //         strclass = 'danger';
+                                        //     } else {
+                                        //         return {};
+                                        //     }
+                                        //     return {
+                                        //         classes : strclass
+                                        //     }
+                                        // },
+                                        // onEditableSave : function(field, row,
+                                        //                           oldValue, $el) {
+                                        //     $.ajax({
+                                        //         type : "post",
+                                        //         url : "/Editable/Edit",
+                                        //         data : {
+                                        //             strJson : JSON.stringify(row)
+                                        //         },
+                                        //         success : function(data, status) {
+                                        //             if (status == "success") {
+                                        //                 alert("编辑成功");
+                                        //             }
+                                        //         },
+                                        //         error : function() {
+                                        //             alert("Error");
+                                        //         },
+                                        //         complete : function() {
+                                        //
+                                        //         }
+                                        //     });
+                                        // },
+                                        columns: [{
+                                            field: 'cusID',//Json  KEY
+                                            title: '流水号',
+                                            align: 'center',
+                                            valign: 'middle',
+                                            sortable: true
+                                        }, {
+                                            field: 'cusName',
+                                            title: '客户名字',
+                                            align: 'center',
+                                            valign: 'middle',
+                                            sortable: true
+                                        }, {
+                                            field: 'phone',
+                                            title: '客户电话',
+                                            align: 'center',
+                                            valign: 'middle',
+                                            sortable: true
+                                        },  {
+                                            field: 'type',
+                                            title: '业务类型',
+                                            align: 'center',
+                                            valign: 'middle',
+                                            sortable: true
+                                        },{
+                                            field: 'money',
+                                            title: '金额',
+                                            align: 'center',
+                                            valign: 'middle',
+                                            sortable: true
+                                        }, {
+                                            field: 'state',
+                                            title: '状态',
+                                            align: 'center',
+                                            valign: 'middle',
+                                            sortable: true
+                                        },],
+                                    }
+                                )
                             }
                         })
 
-                    }
+                    // }
                 })
 
             }
-            $('#reportTable').bootstrapTable(
-                {
-                    data:obj,
-                    height:$(window).height()-100,
-                    toolbar:'#toolbar',
-                    striped:true,
-                    pagination : true,
-                    pageNumber : 1,
-                    pageSize : 10,
-                    pageList : [ 5, 10, 20 ],
-                    search : true,
-                    searchAlign : 'left',
-                    //showRefresh: true,
-                    showExport : true, //是否显示导出
-                    exportDataType : "selected", //basic', 'all', 'selected'.
-                    sidePagination : "client",
-                    editable : true,
-                    showColumns : true,
-                    clickToSelect : true,
-                    showToggle : true, //是否显示详细视图和列表视图的切换按钮
-                    cardView : false, //是否显示详细视图
-                    detailView : false,
-                    minimunCountColumns : 2,
-                    // rowStyle : function(row, index) {
-                    //     //这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
-                    //     var strclass = "";
-                    //     if (row.ORDER_STATUS == "待排产") {
-                    //         strclass = 'success';//还有一个active
-                    //     } else if (row.ORDER_STATUS == "已删除") {
-                    //         strclass = 'danger';
-                    //     } else {
-                    //         return {};
-                    //     }
-                    //     return {
-                    //         classes : strclass
-                    //     }
-                    // },
-                    // onEditableSave : function(field, row,
-                    //                           oldValue, $el) {
-                    //     $.ajax({
-                    //         type : "post",
-                    //         url : "/Editable/Edit",
-                    //         data : {
-                    //             strJson : JSON.stringify(row)
-                    //         },
-                    //         success : function(data, status) {
-                    //             if (status == "success") {
-                    //                 alert("编辑成功");
-                    //             }
-                    //         },
-                    //         error : function() {
-                    //             alert("Error");
-                    //         },
-                    //         complete : function() {
-                    //
-                    //         }
-                    //     });
-                    // },
-                    columns: [{
-                        field: 'cusID',//Json  KEY
-                        title: '流水号',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    }, {
-                        field: 'cusName',
-                        title: '客户名字',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    }, {
-                        field: 'phone',
-                        title: '客户电话',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },  {
-                        field: 'type',
-                        title: '业务类型',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },{
-                        field: 'money',
-                        title: '金额',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    }, {
-                        field: 'state',
-                        title: '状态',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    },],
-                }
-            )
             $(window).resize(function () {
                 $('#reportTable').bootstrapTable('resetView');
             });

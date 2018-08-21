@@ -1,6 +1,7 @@
 package com.bank.service.Impl;
 
 import com.bank.dao.ExcelDao;
+import com.bank.dao.PerfDao;
 import com.bank.service.ExcelService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -27,6 +28,7 @@ public class ExcelServiceImpl implements ExcelService {
     public List uplode(File file,int id) {
         List list;
         list = read(file,id);
+        perfDao.updatePerf(id);
         if (list == null){
             return null;
         }else {
@@ -54,10 +56,8 @@ public class ExcelServiceImpl implements ExcelService {
                 if(rows==0){
                     break;
                 }
-//                System.out.println(rows);
                 Row row = sheet.getRow(0);
                 int lcn = row.getLastCellNum();
-//                System.out.println(lcn);
                 for (int j = 1 ;j < rows ; j++) {
                     List<String> sheetRow = new ArrayList<String>();
                     Row row1 = sheet.getRow(j);
@@ -68,14 +68,12 @@ public class ExcelServiceImpl implements ExcelService {
 //                    System.out.println("--------------------------------------");
                 }
             }
-
 //            System.out.println("--------------------------------------");
 //            System.out.println(list);
 //            System.out.println("--------------------------------------");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(list);
         return excelDao.update(list,id);
     }
 
@@ -114,11 +112,6 @@ public class ExcelServiceImpl implements ExcelService {
     @Autowired
     ExcelDao excelDao;
 
-    public ExcelDao getExcelDao() {
-        return excelDao;
-    }
-
-    public void setExcelDao(ExcelDao excelDao) {
-        this.excelDao = excelDao;
-    }
+    @Autowired
+    PerfDao perfDao;
 }

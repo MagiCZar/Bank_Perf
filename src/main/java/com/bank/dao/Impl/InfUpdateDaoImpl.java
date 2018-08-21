@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
+@Repository("infDao")
 public class InfUpdateDaoImpl implements InfUpdateDao {
 
     private String message;
