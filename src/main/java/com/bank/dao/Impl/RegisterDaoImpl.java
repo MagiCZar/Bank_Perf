@@ -2,6 +2,7 @@ package com.bank.dao.Impl;
 
 import com.bank.bean.*;
 import com.bank.dao.RegisterDao;
+import com.bank.util.CriteriaUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,23 @@ import java.util.List;
  */
 @Repository("registerDao")
 public class RegisterDaoImpl implements RegisterDao {
-    @Override
-    public int add(int frontid) {
+    @Autowired
+    public RegisterDaoImpl(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
-        if (frontid > 0 && frontid < 5) {
-            int id = usefulID(frontid);
+    @Override
+    public int add(int frontId) {
+
+        if (frontId > 0 && frontId < 5) {
+            int id = usefulID(frontId);
             if (id != 0) {
                 Login login = new Login();
                 login.setId(id);
                 login.setPassword(Integer.toString(id));
                 this.getHibernateTemplate().save(login);
             }
-            switch (frontid){
+            switch (frontId){
                 case 1 :
                     AssetEmp emp1 = new AssetEmp();
                     emp1.setId(id);
@@ -55,6 +61,19 @@ public class RegisterDaoImpl implements RegisterDao {
         return 0;
     }
 
+    @Override
+    public String delete(int id) {
+        DetachedCriteria idcount = CriteriaUtil.criteria(id);
+        idcount.add(Restrictions.eq("empId",id));
+        if ((this.getHibernateTemplate().findByCriteria(idcount)).size() != 0){
+            return "error";
+        }else {
+            Login login = this.getHibernateTemplate().get(Login.class,id);
+            this.getHibernateTemplate().delete(login);
+            return "success";
+        }
+    }
+
     private int usefulID(int frontid){
         for (int i = 1;i < 1000;i++){
             int id = 10000 + frontid*1000 + i;
@@ -68,12 +87,8 @@ public class RegisterDaoImpl implements RegisterDao {
         return 0;
     }
 
-    @Autowired
-    private HibernateTemplate hibernateTemplate;
-    public HibernateTemplate getHibernateTemplate() {
+    private final HibernateTemplate hibernateTemplate;
+    private HibernateTemplate getHibernateTemplate() {
         return hibernateTemplate;
-    }
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
     }
 }

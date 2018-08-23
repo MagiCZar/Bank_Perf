@@ -11,18 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("registerService")
 public class RegisterServiceImpl implements RegisterService {
+    @Autowired
+    public RegisterServiceImpl(RegisterDao registerDao) {
+        this.registerDao = registerDao;
+    }
+
     @Transactional
     @Override
     public int add(int id) {
         return registerDao.add(id);
     }
 
-    @Autowired
-    private RegisterDao registerDao;
-    public RegisterDao getRegisterDao() {
-        return registerDao;
+    @Override
+    public String delete(int id) {
+        return registerDao.delete(id);
     }
-    public void setRegisterDao(RegisterDao registerDao) {
-        this.registerDao = registerDao;
-    }
+
+    private final RegisterDao registerDao;
 }

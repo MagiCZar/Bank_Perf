@@ -5,4 +5,5 @@ package com.bank.service;
  */
 public interface RegisterService {
     int add(int id);
+    String delete(int id);
 }

@@ -5,4 +5,5 @@ package com.bank.dao;
  */
 public interface RegisterDao {
     int add(int id);
+    String delete(int id);
 }
