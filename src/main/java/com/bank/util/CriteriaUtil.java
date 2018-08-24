@@ -8,21 +8,21 @@ import org.hibernate.criterion.DetachedCriteria;
 
 public class CriteriaUtil {
     public static DetachedCriteria criteria(int id){
-        DetachedCriteria idcount;
+        DetachedCriteria idCount;
         switch (id/1000){
             case 11:
-                idcount = DetachedCriteria.forClass(AssetCus.class);
+                idCount = DetachedCriteria.forClass(AssetCus.class);
                 break;
             case 12:
-                idcount = DetachedCriteria.forClass(LiaCus.class);
+                idCount = DetachedCriteria.forClass(LiaCus.class);
                 break;
             case 13:
-                idcount = DetachedCriteria.forClass(MiddleCus.class);
+                idCount = DetachedCriteria.forClass(MiddleCus.class);
                 break;
             default:
-                idcount = DetachedCriteria.forClass(PersonCus.class);
+                idCount = DetachedCriteria.forClass(PersonCus.class);
                 break;
         }
-        return idcount;
+        return idCount;
     }
 }

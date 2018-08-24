@@ -4,18 +4,21 @@ import com.bank.bean.*;
 import com.bank.dao.PerfDao;
 import com.bank.util.PerfUtil;
 import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository("PerfDao")
 public class PerfDaoImpl implements PerfDao {
+    @Autowired
+    public PerfDaoImpl(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
+
     @Override
     public String updatePerf(int id) {
         String message;
@@ -101,7 +104,6 @@ public class PerfDaoImpl implements PerfDao {
     }
 
 
-    @Autowired
     @Getter
-    private HibernateTemplate hibernateTemplate;
+    private final HibernateTemplate hibernateTemplate;
 }

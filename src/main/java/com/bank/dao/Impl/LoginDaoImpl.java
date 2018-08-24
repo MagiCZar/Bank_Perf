@@ -2,10 +2,13 @@ package com.bank.dao.Impl;
 
 import com.bank.bean.*;
 import com.bank.dao.LoginDao;
+import com.bank.util.CriteriaUtil;
+import lombok.Getter;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,12 @@ import java.util.List;
  */
 @Repository("loginDao")
 public class LoginDaoImpl implements LoginDao {
+    @Autowired
+    public LoginDaoImpl(SessionFactory sessionFactory, HibernateTemplate hibernateTemplate) {
+        this.sessionFactory = sessionFactory;
+        this.hibernateTemplate = hibernateTemplate;
+    }
+
     @Transactional
     @Override
     public int check(Login user) {
@@ -46,42 +55,19 @@ public class LoginDaoImpl implements LoginDao {
     @Override
     @Transactional
     public List cus(int id) {
-        CriteriaBuilder crb = sessionFactory.getCurrentSession().getCriteriaBuilder();;
-        switch (id/1000){
-            case 11:
-                CriteriaQuery<AssetCus> crqa=crb.createQuery(AssetCus.class);
-                Root<AssetCus> roota=crqa.from(AssetCus.class);
-                crqa.select(roota);
-                crqa.where(crb.equal(roota.get("empId"),id));
-                return sessionFactory.getCurrentSession().createQuery(crqa).getResultList();
-            case 12:
-                CriteriaQuery<LiaCus> crql=crb.createQuery(LiaCus.class);
-                Root<LiaCus> rootl=crql.from(LiaCus.class);
-                crql.select(rootl);
-                crql.where(crb.equal(rootl.get("empId"),id));
-                return sessionFactory.getCurrentSession().createQuery(crql).getResultList();
-            case 13:
-                CriteriaQuery<MiddleCus> crqm=crb.createQuery(MiddleCus.class);
-                Root<MiddleCus> rootm=crqm.from(MiddleCus.class);
-                crqm.select(rootm);
-                crqm.where(crb.equal(rootm.get("empId"),id));
-                return sessionFactory.getCurrentSession().createQuery(crqm).getResultList();
-            case 14:
-                CriteriaQuery<PersonCus> crqp=crb.createQuery(PersonCus.class);
-                Root<PersonCus> rootp=crqp.from(PersonCus.class);
-                crqp.select(rootp);
-                crqp.where(crb.equal(rootp.get("empId"),id));
-                return sessionFactory.getCurrentSession().createQuery(crqp).getResultList();
+        DetachedCriteria criteria;
+        if (id > 10000 && id < 20000) {
+            criteria = CriteriaUtil.criteria(id);
+            criteria.add(Restrictions.eq("empId", id));
+        }else {
+            criteria = CriteriaUtil.criteria(id - 10000);
         }
-        return null;
+        return this.getHibernateTemplate().findByCriteria(criteria);
     }
 
-    @Autowired
-    private SessionFactory sessionFactory;
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
+    @Getter
+    private final SessionFactory sessionFactory;
+
+    @Getter
+    private final HibernateTemplate hibernateTemplate;
 }

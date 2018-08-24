@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PerfUpServiceImpl implements PerfUpService {
+    @Autowired
+    public PerfUpServiceImpl(PerfDao perfDao) {
+        this.perfDao = perfDao;
+    }
+
     @Override
     public String perfUp(Performance performance) {
         return perfDao.perfUp(performance);
     }
 
-    @Autowired
-    private PerfDao perfDao;
+    private final PerfDao perfDao;
 }

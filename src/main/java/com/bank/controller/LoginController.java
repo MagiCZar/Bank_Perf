@@ -16,6 +16,11 @@ import java.util.List;
  */
 @Controller
 public class LoginController {
+    @Autowired
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
     @RequestMapping("login")
     @ResponseBody
     public ModelAndView login(@RequestParam(value = "id")int id,
@@ -32,9 +37,11 @@ public class LoginController {
                 loginService.sign(id);
                 List<Customer> list = ListUtil.listTrans(id,loginService.cus(id));
                 model.addObject("list",list);
+                model.setViewName("/success");
 //                System.out.println(list);
+            }else if (id > 20000 && id < 30000){
+
             }
-            model.setViewName("/success");
             model.addObject("id",id);
 //            System.out.println("\n \t提交表单\n");
             return model;
@@ -57,13 +64,6 @@ public class LoginController {
 //    }
 
 
-    @Autowired
-    private LoginService loginService;
-    public LoginService getLogin(){
-        return loginService;
-    }
-    public void setLogin(LoginService loginService){
-        this.loginService = loginService;
-    }
+    private final LoginService loginService;
 
 }

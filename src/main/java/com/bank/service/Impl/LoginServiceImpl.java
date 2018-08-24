@@ -15,6 +15,11 @@ import java.util.List;
  */
 @Service("loginService")
 public class LoginServiceImpl implements LoginService {
+    @Autowired
+    public LoginServiceImpl(LoginDao userDao) {
+        this.userDao = userDao;
+    }
+
     @Transactional
     @Override
     public int login(Login user) {
@@ -33,15 +38,6 @@ public class LoginServiceImpl implements LoginService {
         return userDao.cus(id);
     }
 
-    @Autowired
-    private LoginDao userDao;
-
-    public LoginDao setUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(LoginDao userDao) {
-        this.userDao = userDao;
-    }
+    private final LoginDao userDao;
 
 }
