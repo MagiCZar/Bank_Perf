@@ -1,5 +1,6 @@
 package com.bank.service.Impl;
 
+import com.bank.bean.Login;
 import com.bank.dao.InfUpdateDao;
 import com.bank.service.InforUpdateService;
 import lombok.Getter;
@@ -11,6 +12,11 @@ import java.util.Date;
 
 @Service
 public class InforUpdateServiceImpl implements InforUpdateService {
+    @Autowired
+    public InforUpdateServiceImpl(InfUpdateDao infUpdateDao) {
+        this.infUpdateDao = infUpdateDao;
+    }
+
     @Override
     public String passUpdate(int id, String pass) {
         return infUpdateDao.passUp(id,pass);
@@ -21,8 +27,11 @@ public class InforUpdateServiceImpl implements InforUpdateService {
         return infUpdateDao.infUp(id,name,birthday,sex);
     }
 
-    @Autowired
+    @Override
+    public boolean CheckPass(int id, String pass) {
+        return infUpdateDao.CheckPass(id,pass);
+    }
+
     @Getter
-    @Setter
-    private InfUpdateDao infUpdateDao;
+    private final InfUpdateDao infUpdateDao;
 }

@@ -4,6 +4,8 @@ import com.bank.bean.*;
 import com.bank.dao.InfUpdateDao;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,11 @@ import java.util.Date;
 public class InfUpdateDaoImpl implements InfUpdateDao {
 
     private String message;
+
+    @Autowired
+    public InfUpdateDaoImpl(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
     @Override
     public String passUp(int id, String pass) {
@@ -103,8 +110,13 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
         return message;
     }
 
-    @Autowired
+    @Override
+    public boolean CheckPass(int id, String pass) {
+        Login login = this.hibernateTemplate.get(Login.class,id);
+        return login.getPassword().equals(pass);
+    }
+
+
     @Getter
-    @Setter
-    private HibernateTemplate hibernateTemplate;
+    private final HibernateTemplate hibernateTemplate;
 }

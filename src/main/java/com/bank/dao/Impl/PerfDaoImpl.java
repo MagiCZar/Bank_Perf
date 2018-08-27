@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Repository("PerfDao")
 public class PerfDaoImpl implements PerfDao {
@@ -37,7 +38,7 @@ public class PerfDaoImpl implements PerfDao {
                     list = this.getHibernateTemplate().findByCriteria(assCus);
                     performance = this.getHibernateTemplate().get(Performance.class,1);
                     num = PerfUtil.numCal(id,list);
-                    perf = PerfUtil.perfCal(id,num,assetEmp.getAttendance(),performance);
+                    perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(assetEmp).getAttendance(),performance);
                     assetEmp.setPerform(perf);
                     assetEmp.setLoan(num[0]);
                     break;
@@ -49,7 +50,7 @@ public class PerfDaoImpl implements PerfDao {
                     list = this.getHibernateTemplate().findByCriteria(liaCus);
                     performance = this.getHibernateTemplate().get(Performance.class,2);
                     num = PerfUtil.numCal(id,list);
-                    perf = PerfUtil.perfCal(id,num,liaEmp.getAttendance(),performance);
+                    perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(liaEmp).getAttendance(),performance);
                     liaEmp.setPerform(perf);
                     liaEmp.setMaleDep(num[0]);
                     break;
@@ -61,7 +62,7 @@ public class PerfDaoImpl implements PerfDao {
                     list = this.getHibernateTemplate().findByCriteria(midCus);
                     performance = this.getHibernateTemplate().get(Performance.class,3);
                     num = PerfUtil.numCal(id,list);
-                    perf = PerfUtil.perfCal(id,num,middleEmp.getAttendance(),performance);
+                    perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(middleEmp).getAttendance(),performance);
                     middleEmp.setPerform(perf);
                     middleEmp.setFinancing(num[0]);
                     middleEmp.setInvest(num[1]);
@@ -76,7 +77,7 @@ public class PerfDaoImpl implements PerfDao {
                     list = this.getHibernateTemplate().findByCriteria(perCus);
                     performance = this.getHibernateTemplate().get(Performance.class,4);
                     num = PerfUtil.numCal(id,list);
-                    perf = PerfUtil.perfCal(id,num,perEmp.getAttendance(),performance);
+                    perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(perEmp).getAttendance(),performance);
                     perEmp.setPerform( perf);
                     perEmp.setPerdebt(num[0]);
                     perEmp.setPerloan(num[1]);
