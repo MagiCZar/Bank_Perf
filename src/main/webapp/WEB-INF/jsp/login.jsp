@@ -6,37 +6,37 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>绩效管理系统用户登录</title>
-    <link href="../../css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="../../js/jQuery1.7.js"></script>
-    <script type="text/javascript" src="../../js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery1.42.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.SuperSlide.js"></script>
-    <script type="text/javascript" src="../../js/Validform_v5.3.2_min.js"></script>
+    <link href="css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="js/jQuery1.7.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery1.42.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+    <script type="text/javascript" src="js/Validform_v5.3.2_min.js"></script>
 
     <script type="text/javascript">
         $(function(){
             /*员工登录信息验证*/
             $("#stu_username_hide").focus(function(){
                 var username = $(this).val();
-                if(username=='输入工号'){
+                if(username==='输入工号'){
                     $(this).val('');
                 }
             });
             $("#stu_username_hide").focusout(function(){
                 var username = $(this).val();
-                if(username==''){
+                if(username===''){
                     $(this).val('输入工号');
                 }
             });
             $("#stu_password_hide").focus(function(){
                 var username = $(this).val();
-                if(username=='输入密码'){
+                if(username==='输入密码'){
                     $(this).val('');
                 }
             });
             $("#stu_password_hide").focusout(function(){
                 var username = $(this).val();
-                if(username==''){
+                if(username===''){
                     $(this).val('输入密码');
                 }
             });
@@ -69,7 +69,7 @@
                 <div id="username">
                     <h6 style="color: #ff0000">${error}</h6>
                     <label>工&nbsp;&nbsp;&nbsp;号：</label>
-                    <input type="text" id="stu_username_hide" name="id" value="输入工号" nullmsg="工号不能为空！" datatype="/^[1-3]\d{4}$/" errormsg="工号非法！" sucmsg="工号验证通过！"/>
+                    <input type="text" id="stu_username_hide" name="id" value="输入工号" nullmsg="工号不能为空！" datatype="/^[1-3]\d{4}$/" errormsg="工号非法！" sucmsg="工号验证通过！" title=""/>
                     <!--ajaxurl="demo/valid.jsp"-->
                 </div>
                 <div id="password">

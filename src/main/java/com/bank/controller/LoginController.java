@@ -37,7 +37,7 @@ public class LoginController {
                 loginService.sign(id);
                 List<Customer> list = ListUtil.listTrans(id,loginService.cus(id));
                 model.addObject("list",list);
-                model.setViewName("/success");
+                model.setViewName("EmpMainpage.html");
 //                System.out.println(list);
             }else if (id > 20000 && id < 30000){
 
@@ -46,7 +46,7 @@ public class LoginController {
 //            System.out.println("\n \t提交表单\n");
             return model;
         }else {
-            model.setViewName("login");
+            model.setViewName("login.jsp");
             model.addObject("error",ERROR);
             return model;
         }

@@ -17,296 +17,194 @@
 
 <%@page isELIgnored="false"%>
 <%--<script src="../../js/jquery-1.8.2.min.js"></script>--%>
-<script src="../../js/jquery.form.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<link rel="stylesheet" href="./css/bootstrap.css"/>
-<link rel="stylesheet" href="./css/bootstrap-table.css"/>
+<!doctype html>
+<html lang="en">
 
-<script src="./js/bootstrap.js"></script>
-<script src="./js/bootstrap-table.js"></script>
-<script src="./js/bootstrap-table-export.js"></script>
-<script src="./js/jquery.base64.js"></script>
-<script src="./js/tableExport.js"></script>
-<html>
 <head>
-    <%--<meta http-equiv="Content-Type" content="multipart/form-data;charset=utf-8"/>--%>
-    <link rel="stylesheet" href="./css/bootstrap.css"/>
-    <link rel="stylesheet" href="./css/bootstrap-table.css"/>
-
-    <script src="./js/bootstrap.js"></script>
-    <script src="./js/bootstrap-table.js"></script>
-    <script src="./js/bootstrap-table-export.js"></script>
-    <script src="./js/jquery.base64.js"></script>
-    <script src="./js/tableExport.js"></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>银行管理系统</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/frame.css">
+    <link rel="stylesheet" href="css/addClass.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- 	<script>
+        function printInputValue(){
+            var inputValue = document.getElementById("login-user-input").value;
+            document.getElementById("login-user-output").innerHTML = inputValue;
+        }
+        </script> -->
 </head>
 
 <body>
-<h3>hello,${id}</h3>
-<div id="content">
-    <div style="text-align: right">
-        可选导出文件格式: ['csv', 'txt', 'xml','excel','sql','json']
-    </div>
-    <div id="content-body">
-        <div id="reportTableDiv" class="span10">
-            <table id="reportTable">
-            </table>
+
+<div class="head">
+    <div class="common-head clearfix">
+        <!-- <a class="logo" href="EmpMainpage.html">
+            <img src="img/logo3.png" alt="">
+        </a> -->
+
+        <div class="right pull-right text-right" id="hovpad">
+            <dl class="user-wrapper">
+                <dt><span class="time">欢迎您</span><span id="login-user-output" class="time"></span><img src="img/headjt.png" alt=""><img class="active" src="img/headjt-active.png" alt=""></dt>
+                <dd>
+                    <div class="head clearfix">
+                        <a href="">账户信息</a>
+                        <!-- <span></span> -->
+                    </div>
+
+                    <div class="head clearfix">
+                        <a href="login.html">安全退出</a>
+                    </div>
+                    <!-- <ul>
+                        <li>登陆：100&nbsp;次</li>
+                        <li>下单：1000&nbsp;次</li>
+                        <li>审单：1000&nbsp;次</li>
+                        <li>好评：1000&nbsp;次</li>
+                        <li>积分：1000&nbsp;分</li>
+                        <li>星级：
+                            <img src="img/star.png" alt="">
+                            <img src="img/star.png" alt="">
+                            <img src="img/star-ban.png" alt="">
+                            <img src="img/star-hui.png" alt="">
+                            <img src="img/star-hui.png" alt="">
+                        </li>
+                    </ul> -->
+                </dd>
+            </dl>
+            <dl class="msg-wrapper">
+                <dt class="clearfix"><img src="img/msg.png" alt=""><img class="active" src="img/msg-active.png" alt=""><span> 消息 </span><!-- <span class="tag">320</span> --></dt>
+                <dd>
+                    <a href="">交易通知：<span>123</span></a>
+                    <a href="">系统通知：<span>123</span></a>
+                    <a href="">系统消息：<span>123</span></a>
+                </dd>
+            </dl>
         </div>
     </div>
+</div><!-- common-head -->
+
+<!-- common-head -->
+<!--侧栏-->
+<div class="side-bar">
+    <div class="logobox">
+        <a href="index.html" class="banklogo">
+            <img src="img/banklogo3.png" alt="">
+        </a>
+        <a href="index.html" class="banklogo2">
+            <img src="img/banklogo2.png" alt="">
+        </a>
+    </div>
+    <div class="content">
+        <dl>
+            <dt style="border-top: none;"><img class="line" src="img/line.png" alt="">客户管理 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
+            <dd>
+                <a href="#eventable.html">客户信息 </a>
+                <!-- <a href="#view/communication.html">业务管理 </a> -->
+            </dd>
+        </dl>
+        <dl>
+            <dt ><img class="line" src="img/line.png" alt="">绩效查看 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
+            <dd>
+                <a href="#show2.html">考勤记录 </a>
+                <a href="#service2.html">数据对比 </a>
+                <!-- <a href="#view/loginCode.html">周报生成 </a> -->
+
+            </dd>
+        </dl>
+
+        <dl>
+            <dt><img class="line" src="img/line.png" alt="">个人中心 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
+            <dd>
+                <a href="#table.html">信息管理 </a>
+                <!-- <a href="#">错误申诉 </a> -->
+            </dd>
+        </dl>
+    </div>
 </div>
-
-<div>
-    <form id="form1" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="上传" id="submit">
-    </form>
-    <iframe name="frame1" frameborder="0" height="200" width="200" ></iframe>
+<!--内容部分-->
+<div id="main" >
+    <div   style="-webkit-overflow-scrolling:touch;overflow:auto;height: 100%;">
+        <iframe class="scroll"  src="table.html" id="ghrzFrame"  frameborder="no" border="0"></iframe>
+        <!-- 此数的src 填success -->
+    </div>
 </div>
+</body>
+<script src="js/jquery-1.11.3.js"></script>
 
 
-<script type="text/javascript">
-    $(function(){
-        var obj = [];
-            upload();
-            function upload() {
-                var sub = $('#submit');
-                sub.click(function (e) {
-                    // if ($("input[type='file']").val()!=="") {
-                        var data = new FormData($('#form1')[0]);
-                        e.preventDefault();
-                        $.ajax({
-                            type: 'post',
-                            url: '/success/excel',//请求地址
-                            cache: false,
-                            data: data,
-                            processData: false, //特别注意这个属性不能省
-                            contentType: false, //特别注意这个属性不能省
-                            dataType: 'json',
-                            success: function (data) {
-                                // $.ajax({
-                                //     url:"/success/excel",
-                                //     type:"get",
-                                //     dataType:"json",
-                                //     cache:false,
-                                //     success:function (data) {
-                                //         if (data) {
-                                //             obj = eval(data);
-                                //         }
-                                //     }
-                                // })
-                                $('#form1')[0].reset();
-                                obj = eval(data);
-                                console.log(obj);
-                                $('#reportTable').bootstrapTable('destroy');
-                                $('#reportTable').bootstrapTable(
-                                    {
-                                        data:obj,
-                                        height:$(window).height()-100,
-                                        toolbar:'#toolbar',
-                                        striped:true,
-                                        pagination : true,
-                                        pageNumber : 1,
-                                        pageSize : 10,
-                                        pageList : [ 5, 10, 20 ],
-                                        search : true,
-                                        searchAlign : 'left',
-                                        //showRefresh: true,
-                                        showExport : true, //是否显示导出
-                                        exportDataType : "selected", //basic', 'all', 'selected'.
-                                        sidePagination : "client",
-                                        editable : true,
-                                        showColumns : true,
-                                        clickToSelect : true,
-                                        showToggle : true, //是否显示详细视图和列表视图的切换按钮
-                                        cardView : false, //是否显示详细视图
-                                        detailView : false,
-                                        minimunCountColumns : 2,
-                                        // rowStyle : function(row, index) {
-                                        //     //这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
-                                        //     var strclass = "";
-                                        //     if (row.ORDER_STATUS == "待排产") {
-                                        //         strclass = 'success';//还有一个active
-                                        //     } else if (row.ORDER_STATUS == "已删除") {
-                                        //         strclass = 'danger';
-                                        //     } else {
-                                        //         return {};
-                                        //     }
-                                        //     return {
-                                        //         classes : strclass
-                                        //     }
-                                        // },
-                                        // onEditableSave : function(field, row,
-                                        //                           oldValue, $el) {
-                                        //     $.ajax({
-                                        //         type : "post",
-                                        //         url : "/Editable/Edit",
-                                        //         data : {
-                                        //             strJson : JSON.stringify(row)
-                                        //         },
-                                        //         success : function(data, status) {
-                                        //             if (status == "success") {
-                                        //                 alert("编辑成功");
-                                        //             }
-                                        //         },
-                                        //         error : function() {
-                                        //             alert("Error");
-                                        //         },
-                                        //         complete : function() {
-                                        //
-                                        //         }
-                                        //     });
-                                        // },
-                                        columns: [{
-                                            field: 'cusID',//Json  KEY
-                                            title: '流水号',
-                                            align: 'center',
-                                            valign: 'middle',
-                                            sortable: true
-                                        }, {
-                                            field: 'cusName',
-                                            title: '客户名字',
-                                            align: 'center',
-                                            valign: 'middle',
-                                            sortable: true
-                                        }, {
-                                            field: 'phone',
-                                            title: '客户电话',
-                                            align: 'center',
-                                            valign: 'middle',
-                                            sortable: true
-                                        },  {
-                                            field: 'type',
-                                            title: '业务类型',
-                                            align: 'center',
-                                            valign: 'middle',
-                                            sortable: true
-                                        },{
-                                            field: 'money',
-                                            title: '金额',
-                                            align: 'center',
-                                            valign: 'middle',
-                                            sortable: true
-                                        }, {
-                                            field: 'state',
-                                            title: '状态',
-                                            align: 'center',
-                                            valign: 'middle',
-                                            sortable: true
-                                        },],
-                                    }
-                                )
-                            }
-                        })
+<script>
+    //首次加载至url
+    var u = window.location.href.split('#')[1]; //以“#”拆分当前url，取第二部分
+    $('#main iframe').attr('src',u);   //attr 对src属性进行设置
+    $('.side-bar dd a[href="#'+ $('#main iframe').attr('src') + '"]').addClass('active');
 
-                    // }
-                })
 
-            }
-            $(window).resize(function () {
-                $('#reportTable').bootstrapTable('resetView');
-            });
+    //侧栏菜单
+    $(function() {                               //$(document).ready(function(){    DOM加载完成后对DOM进行操作
+        $('.side-bar dt').click(function() {
+            var dd = $(this).siblings('dd');
+            dd.slideToggle();                  //slideToggle在显示和隐藏之间滑动切换
+            $(this).find('.b').toggle()       //toggle是在显示和隐藏之间闪现切换
+            $(this).find('.r').toggle()
         });
+        $('.side-bar dd a').click(function() {
+            $('.side-bar dd a').removeClass('active');
+            $(this).addClass('active');
+            //页面显示控制
+            var url = $(this).attr('href').substring(1);
+            var f = $('#main iframe');
+            f.attr('src', url);
+        });
+    });
 
-    // $(function () {
-        <%--$('#reportTable').bootstrapTable({--%>
-            <%--url: '/success/excel',--%>
-            <%--method: 'post',--%>
-            <%--dataType:"json",--%>
-            <%--cache: false,--%>
-            <%--height: 800,//改变table的高度，!!!并不是实际大小--%>
-            <%--striped: true,--%>
-            <%--pagination: true,--%>
-            <%--pageSize: 20,//每页默认数据量--%>
-            <%--pageNumber: 1,//默认第一页--%>
-            <%--pageList: [10, 20, 50, 100, 200, 500],--%>
-            <%--search: true,//搜索框--%>
+    $('#hovpad dl').on('click', function(e) {
+        var dd = $(this).find('dd');
+        if (dd.css('display') === 'none') {
+            dd.show();
+            $(this).addClass('active');
+        } else {
+            dd.hide();
+            $(this).removeClass('active');
+        }
+        e.stopPropagation();
+    });
+    $('#hovpad dl').hover(function(e) {
+        var dd = $(this).find('dd');
+        dd.show();
+        $(this).addClass('active');
+    }, function(e) {
+        var dd = $(this).find('dd');
+        dd.hide();
+        $(this).removeClass('active');
+    })
+    $('body').on('click', function() {
+        $('#hovpad dl').removeClass('active');
+    })
 
-            <%--showColumns: true,--%>
-            <%--showRefresh: true,--%>
-            <%--showExport: true,--%>
-            <%--exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],--%>
-            <%--search: true,--%>
-            <%--clickToSelect: true,--%>
-            <%--columns: [{--%>
-                <%--field: 'cusID',//Json  KEY--%>
-                <%--title: "流水号",--%>
-                <%--align: "center",--%>
-                <%--valign: "middle",--%>
-                <%--sortable: "true"--%>
-            <%--}, {--%>
-                <%--field: "cusName",--%>
-                <%--title: "客" +--%>
-                    <%--"户名字",--%>
-                <%--align: "center",--%>
-                <%--valign: "middle",--%>
-                <%--sortable: "true"--%>
-            <%--}, {--%>
-                <%--field: "phone",--%>
-                <%--title: "客户电话",--%>
-                <%--align: "center",--%>
-                <%--valign: "middle",--%>
-                <%--sortable: "true"--%>
-            <%--},  {--%>
-                <%--field: "type",--%>
-                <%--title: "业务类型",--%>
-                <%--align: "center",--%>
-                <%--valign: "middle",--%>
-                <%--sortable: "true"--%>
-            <%--},{--%>
-                <%--field: "money",--%>
-                <%--title: "金额",--%>
-                <%--align: "center",--%>
-                <%--valign: "middle",--%>
-                <%--sortable: "true"--%>
-            <%--}, {--%>
-                <%--field: "state",--%>
-                <%--title: "状态",--%>
-                <%--align: "center",--%>
-                <%--valign: "middle",--%>
-                <%--sortable: "true"--%>
-            <%--},],--%>
-            <%--onPageChange: function (size, number) {--%>
-                <%--//$("#pageSizeInput").val(size);--%>
-                <%--//$("#pageNumberInput").val(number);--%>
 
-                <%--//var form = $('#tableForm');--%>
-                <%--//form.action= '${base}/showReport';--%>
-                <%--//form.submit();--%>
-            <%--},--%>
-            <%--//onSort: function (name, order) {--%>
-            <%--// },--%>
-            <%--//formatShowingRows: function (pageFrom, pageTo, totalRows) {--%>
-            <%--//	return '';--%>
-            <%--// },--%>
-            <%--//formatRecordsPerPage: function () {--%>
-            <%--//	return '';--%>
-            <%--//  },--%>
-            <%--formatNoMatches: function () {--%>
-                    <%--return '�޷��������ļ�¼';--%>
-            <%--}--%>
-        <%--});--%>
 
-        <%--$(window).resize(function () {--%>
-            <%--$('#reportTable').bootstrapTable('resetView');--%>
-        <%--});--%>
-    <%--});--%>
+    function oneValues(){
+        var result;
+        var url=window.location.search; //获取url中"?"符后的字串
+        if(url.indexOf("?")!==-1){
+            result = url.substr(url.indexOf("=")+1);
+        }
+        return result;
+    }
+
+    $(function(){
+        $("#login-user-output").html(oneValues());
+    })
+
 
 </script>
 
-<!--<div style="margin-left:20px;"><h4>
-	When resize the window, the table header does not adjust automatically, how to solve it?<br/>
-	When you set the height of bootstrap table, the fixed header feature is automatically enabled, <br/>
-	that is what cause the problem, you need to listen the resize event of window and use the <br/>
-	resetView method to solve this problem, code example:<br/>
-	<br/>
-	$(function () {<br/>
-	&nbsp;&nbsp; $('#tableId').bootstrapTable(); // init via javascript<br/>
-	<br/>
-	&nbsp;&nbsp; $(window).resize(function () {<br/>
-	&nbsp;&nbsp;&nbsp;&nbsp; $('#tableId').bootstrapTable('resetView');<br/>
-	&nbsp;&nbsp; });<br/>
-	});<br/>
-</h4></div>
--->
-</body>
 </html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>table</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+	<link rel="stylesheet" href="css/tableStyle.css">
+	<!-- 引入bootstrap样式 -->
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<!-- 引入bootstrap-table样式 -->
+	<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+
+	<!-- jquery -->
+	<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<!-- bootstrap-table.min.js -->
+	<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+	<!-- 引入中文语言包 -->
+	<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+</head>
+<body>
+
+<div class="row">
+
+	<div class="title">
+		<h4 class="title_txt">信息管理</h4>
+		<img class="title_img" src="img/title_img.png" alt="">
+	</div>
+
+	<div class="table-responsive">
+
+		<table class="table table-bordered table-hover">
+
+			<tr><th class="info" colspan="4">个人信息</th></tr>
+
+			<tr><td class="active col-md-2">姓名</td><td class="change col-md-4">张三</td><td class="active col-md-2">年龄</td><td class="change2">22</td></tr>
+
+			<tr><td class="active col-md-2">性别</td><td class="change col-md-4">张三</td><td class="active col-md-2">科室</td><td >22</td></tr>
+
+			<tr><td class="active col-md-2" >工号</td><td colspan="3">22</td></tr>
+
+			<tr><td class="active col-md-2" >密码</td><td colspan="3"><p class="button"><a href="javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">修改密码</a></p></td></tr>
+
+	    </table>
+
+	</div>
+
+    <div class="message"><p>姓名、性别、生日信息可直接点击表格进行更改</p></div>
+
+    <div class="submit_area"><button class="submit_button" type="submit" id="submit_btn">保存更改</button></div>
+
+</div>
+
+
+<div id="light" class="popup">
+    <div class="pop_title">
+    	<img class="error" src="./img/error01.png" alt="" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+    </div>
+    <div class="pop_body">
+		<div class="tab_title">
+		<h4 class="title_txt">修改密码</h4>
+		<img class="title_img" src="img/title_img.png" alt="">
+    </div>
+
+
+	<form action="">
+		<div class="register-box">
+			<label for="username" class="other_label">旧 密 码
+			<input maxlength="20" type="password" placeholder="输入您现在的密码"/>
+			</label>
+			<div class="tips">
+				
+			</div>
+		</div>
+		<div class="register-box">
+			<label for="username" class="other_label">新 密 码
+			<input maxlength="20" type="password" placeholder="建议至少使用两种字符组合"/>
+			</label>
+			<div class="tips">
+				
+			</div>
+		</div>
+		<div class="register-box last">
+			<label for="username" class="other_label">确 认 密 码
+			<input maxlength="20" type="password" placeholder="请再次输入密码"/>
+			</label>
+			<div class="tips">
+				
+			</div>
+		</div>
+		<div class="submit_area2">
+					<button class="submit_button2" type="submit" id="submit_btn2">保 存 修 改</button>
+				</div>
+	</form>
+    </div>
+	
+	
+</div>
+
+</div>
+
+<div id="fade" class="black_overlay"></div>
+
+<script type="text/javascript">    
+$(function(){
+	$('table .change').click(function(){    
+        if(!$(this).is('.input')){    
+            $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){    
+                var thisid = $(this).parent().siblings("td:eq(0)").text();    
+                var thisvalue=$(this).val();    
+                var thisclass = $(this).parent().attr("class");      
+                 
+                $.ajax({    
+                  type: 'POST',    
+                  url: 'update.php',    
+                  data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
+                });    
+                $(this).parent().removeClass('input').html($(this).val() || 0);    
+            });                        
+        }    
+    }).hover(function(){    
+        $(this).addClass('hover');    
+    },function(){    
+        $(this).removeClass('hover');    
+    });
+
+    $('table .change2').click(function(){    
+        if(!$(this).is('.input')){    
+            $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){    
+                var thisid = $(this).parent().siblings("td:eq(2)").text();    
+                var thisvalue=$(this).val();    
+                var thisclass = $(this).parent().attr("class");      
+                 
+                $.ajax({    
+                  type: 'POST',    
+                  url: 'update.php',    
+                  data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
+                });    
+                $(this).parent().removeClass('input').html($(this).val() || 0);    
+            });                        
+        }    
+    }).hover(function(){    
+        $(this).addClass('hover');    
+    },function(){    
+        $(this).removeClass('hover');    
+    });
+
+    $('.register-box input').eq(0).focus(function(){
+		if($(this).val().length==0){
+			$(this).parent().next("div").text("必须先输入旧密码才可更改密码");
+		}
+	// }).blur(function(){
+	// 	if (!$(this).val().length==0) {
+	// 		var 
+	// 	}
+	})
+
+	$('.register-box input').eq(1).focus(function(){
+		if($(this).val().length==0){
+		    $(this).parent().next("div").text("建议使用字母、数字和符号两种以上的组合，6-20个字符");
+		}
+	})
+
+	$('.register-box input').eq(2).focus(function(){
+		if($(this).val().length==0){
+			$(this).parent().next("div").text("请再次输入密码");
+		}
+	})
+
+
+	$('.register-box input').eq(0).blur(function(){
+		if($(this).val().length==0){
+			$(this).parent().next("div").text("");
+			$(this).parent().next("div").css("color",'#ccc');
+		}else if($(this).val().length>0 && $(this).val().length<6){
+			$(this).parent().next("div").text("长度只能在6-20个字符之间");
+			$(this).parent().next("div").css("color",'red');
+		}else{
+			$(this).parent().next("div").text("");
+		}		
+	})
+
+
+	$('.register-box input').eq(1).blur(function(){
+		if($(this).val().length==0){
+			$(this).parent().next("div").text("");
+			$(this).parent().next("div").css("color",'#ccc');
+		}else if($(this).val().length>0 && $(this).val().length<6){
+			$(this).parent().next("div").text("长度只能在6-20个字符之间");
+			$(this).parent().next("div").css("color",'red');
+		}else{
+			$(this).parent().next("div").text("");
+		}		
+	})
+
+//	确认密码
+$('.register-box input').eq(2).blur(function(){
+		if($(this).val().length==0){
+			$(this).parent().next("div").text("");
+			$(this).parent().next("div").css("color",'#ccc');
+		}else if($(this).val()!=$('input').eq(1).val()){
+			$(this).parent().next("div").text("两次密码不匹配");
+			$(this).parent().next("div").css("color",'red');
+		}else{
+			$(this).parent().next("div").text("");
+		}		
+	})
+
+})
+	    
+    
+
+    
+
+
+    
+
+//	提交按钮
+	$("#submit_btn2").click(function(e){
+
+		for(var j=0 ;j<3;j++){
+			if($('.register-box input').eq(j).val().length==0){				
+				$('.register-box input').eq(j).focus();				
+				$('.register-box input').eq(j).parent().next(".tips").text("此处不能为空");
+				$('.register-box input').eq(j).parent().next(".tips").css("color",'red');	
+				e.preventDefault();
+				return;
+			}			
+		}
+		if (!$('.tips').text()=="") {
+            
+				e.preventDefault();
+				return;
+		}else{
+
+			var oldPwd=$('.register-box input').eq(0).val();
+		    var newPwd=$('.register-box input').eq(2).val();
+		    alert("oldPwd"+oldPwd+"\newPwd="+newPwd);
+
+			$.ajax({
+				type: 'post',
+	            url: '/success/excel',
+	            // async:false
+	            data:{"old":oldPwd,"new":newPwd},
+
+
+	            success: function (data) { 
+
+	            	if (data=="0") {
+	            		$('.tips').eq(0).text("密码不正确");
+
+	            	}
+
+	            }
+			});
+
+		}
+	})		
+		
+
+			
+		
+
+
+		
+		
+
+		
+
+
+	        
+    
+    
+		
+
+
+
+   
+
+</script>    
+
+</table>
+	
+</body>
+</html>
