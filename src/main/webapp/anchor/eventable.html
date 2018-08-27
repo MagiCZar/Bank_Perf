@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>eventable</title>
+	<!-- 引入bootstrap样式 -->
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<!-- 引入bootstrap-table样式 -->
+	<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+
+	<!-- jquery -->
+	<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<!-- bootstrap-table.min.js -->
+	<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+	<!-- 引入中文语言包 -->
+	<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+	<link rel="stylesheet" href="/css/eventable.css">
+</head>
+<body>
+<a name="event" id="event"></a>
+	<div>
+		<div class="title">
+			<h4 class="title_txt">业务信息管理</h4>
+			<img class="title_img" src="/img/title_img2.png" alt="">
+		</div>
+	</div>
+
+	<div class="message">
+				<form id="form1" method="post" enctype="multipart/form-data">
+					<input type="text" id="txt" name="txt" class="input" value="支持.xls格式" disabled="disabled" />
+					<input type="button" onMouseMove="file.style.pixelLeft=event.x-60;f.style.pixelTop=this.offsetTop;" value="导入表格" size="30" onClick="file.click()" class="liulan">
+					<input type="file" id="file" onChange="txt.value=this.value" name="file" style="height:26px;" class="files"  size="1" hidefocus>
+					<input type="submit" value="上传" id="submit">
+				</form>
+			</div>
+
+	<div id="content-body">
+        <div id="reportTableDiv" class="span10">
+            <table id="reportTable">
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    	// $(document).ready(function()){
+    	// 
+    		$('#liulan').click(function(){
+
+           			alert("成功");
+           	        $('#f').trigger('click');
+           })
+
+
+    		$(function(){
+    			var obj = [];
+            	upload();
+            	function upload() {
+                var sub = $('#submit');
+                sub.click(function (e) {
+                    if ($("input[type='file']").val()!=="") {
+                        var data = new FormData($('#form1')[0]);
+                        e.preventDefault();
+                        // 请求数据过程
+                        $.ajax({
+                            type: 'post',
+                            url: '/emp/excel',//请求地址
+                            cache: false,
+                            data: data,
+                            processData: false, //特别注意这个属性不能省
+                            contentType: false, //特别注意这个属性不能省
+                            dataType: 'json',
+                            // 从后端获取data
+                            success: function (data) {
+                                obj = eval(data);
+                                console.log(obj);
+                                $('#reportTable').bootstrapTable('destroy');
+                                $('#reportTable').bootstrapTable({
+                                    locale:'zh-CN',
+                                    datatype:'json',
+									data:obj,
+                                    contentType:'application/json',
+                                    cache: false,
+                                    height: 525,//改变table的高度，!!!并不是实际大小
+                                    striped: true,
+                                    pagination: true,
+                                    pageSize: 10,//每页默认数据量
+                                    pageNumber: 1,//默认第一页
+                                    pageList: [5, 10, 15],
+                                    search: true,//搜索框
+                                    showColumns: true,
+                                    showRefresh: true,
+                                    showExport: true,
+                                    exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
+                                    search: true,
+                                    clickToSelect: true,
+                                    columns: [{
+                                        field: "cusID",//Json  KEY
+                                        title: "流水号",
+                                        align: "center",
+                                        valign: "middle",
+                                        sortable: "true"
+                                    }, {
+                                        field: "cusName",
+                                        title: "客户名字",
+                                        align: "center",
+                                        valign: "middle",
+                                        sortable: "true"
+                                    }, {
+                                        field: "phone",
+                                        title: "客户电话",
+                                        align: "center",
+                                        valign: "middle",
+                                        sortable: "true"
+                                    }, {
+                                        field: "type",
+                                        title: "业务类型",
+                                        align: "center",
+                                        valign: "middle",
+                                        sortable: "true"
+                                    }, {
+                                        field: "money",
+                                        title: "金额",
+                                        align: "center",
+                                        valign: "middle",
+                                        sortable: "true"
+                                    },{
+                                        field: "state",
+                                        title: "状态",
+                                        align: "center",
+                                        valign: "middle",
+                                        sortable: "true"
+                                    }, ],
+
+                                });
+                            }
+                        })
+
+                    }
+                })
+            }
+    		})
+    	// 
+    	// 
+    	// 
+    	// 
+    		
+    	// 	$(document).ready(function(){
+
+    	// 		$.ajax({
+
+    	// 			url:''.
+    	// 			type:'get',
+    	// 			datatype:'json',
+    	// 			cache:false,
+    	// 			success:function(data){
+    	// 				$('#reportTable').bootstrapTable({
+
+     //        				data:data,
+				 //            locale:'zh-CN',
+				 //            datatype:'json',
+				 //            contentType:'application/json',
+				 //            cache: false,
+				 //            height: 525,//改变table的高度，!!!并不是实际大小
+				 //            striped: true,
+				 //            pagination: true,
+				 //            pageSize: 10,//每页默认数据量
+				 //            pageNumber: 1,//默认第一页
+				 //            pageList: [5, 10, 15],
+				 //            search: true,//搜索框
+				 //            showColumns: true,
+				 //            showRefresh: true,
+				 //            showExport: true,
+				 //            exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
+				 //            search: true,
+				 //            clickToSelect: true,
+				 //            columns: [{
+				 //                field: "cusID",//Json  KEY
+				 //                title: "流水号",
+				 //                align: "center",
+				 //                valign: "middle",
+				 //                sortable: "true"
+				 //            }, {
+				 //                field: "cusName",
+				 //                title: "客户名字",
+				 //                align: "center",
+				 //                valign: "middle",
+				 //                sortable: "true"
+				 //            }, {
+				 //                field: "phone",
+				 //                title: "客户电话",
+				 //                align: "center",
+				 //                valign: "middle",
+				 //                sortable: "true"
+				 //            }, {
+				 //                field: "type",
+				 //                title: "业务类型",
+				 //                align: "center",
+				 //                valign: "middle",
+				 //                sortable: "true"
+				 //            }, {
+				 //                field: "money",
+				 //                title: "金额",
+				 //                align: "center",
+				 //                valign: "middle",
+				 //                sortable: "true"
+				 //            },{
+				 //                field: "state",
+				 //                title: "状态",
+				 //                align: "center",
+				 //                valign: "middle",
+				 //                sortable: "true"
+				 //            }, ],
+    		
+    	// 				})
+    	// 		}
+    	// 			error:function(){
+
+    	// 			}
+
+    	// 	 });
+    	// })
+
+
+    		//  
+ 
+        	$('#reportTable').bootstrapTable({
+            locale:'zh-CN',
+            datatype:'json',
+            contentType:'application/json',
+            cache: false,
+            height: 525,//改变table的高度，!!!并不是实际大小
+            striped: true,
+            pagination: true,
+            pageSize: 10,//每页默认数据量
+            pageNumber: 1,//默认第一页
+            pageList: [5, 10, 15],
+            search: true,//搜索框
+            showColumns: true,
+            showRefresh: true,
+            showExport: true,
+            exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
+            search: true,
+            clickToSelect: true,
+            columns: [{
+                field: "cusID",//Json  KEY
+                title: "流水号",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "cusName",
+                title: "客户名字",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "phone",
+                title: "客户电话",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "type",
+                title: "业务类型",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, {
+                field: "money",
+                title: "金额",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            },{
+                field: "state",
+                title: "状态",
+                align: "center",
+                valign: "middle",
+                sortable: "true"
+            }, ],
+        });
+			$(window).resize(function () {
+                $('#reportTable').bootstrapTable('resetView');
+            });
+    </script>
+</body>
+</html>

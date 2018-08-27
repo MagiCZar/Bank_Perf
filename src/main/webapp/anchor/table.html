@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-	<link rel="stylesheet" href="css/tableStyle.css">
+	<link rel="stylesheet" href="/anchor/css/tableStyle.css">
 	<!-- 引入bootstrap样式 -->
 	<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<!-- 引入bootstrap-table样式 -->
@@ -28,7 +28,7 @@
 
 	<div class="title">
 		<h4 class="title_txt">信息管理</h4>
-		<img class="title_img" src="img/title_img.png" alt="">
+		<img class="title_img" src="/img/title_img.png" alt="">
 	</div>
 
 	<div class="table-responsive">
@@ -37,13 +37,13 @@
 
 			<tr><th class="info" colspan="4">个人信息</th></tr>
 
-			<tr><td class="active col-md-2">姓名</td><td class="change col-md-4">张三</td><td class="active col-md-2">年龄</td><td class="change2">22</td></tr>
+			<tr><td class="active col-md-2">姓名</td><td id="name" class="change col-md-4">张三</td><td class="active col-md-2">年龄</td><td id="birthday" class="change2">22</td></tr>
 
-			<tr><td class="active col-md-2">性别</td><td class="change col-md-4">张三</td><td class="active col-md-2">科室</td><td >22</td></tr>
+			<tr><td class="active col-md-2">性别</td><td id="sex" class="change col-md-4">张三</td><td class="active col-md-2">科室</td><td >22</td></tr>
 
-			<tr><td class="active col-md-2" >工号</td><td colspan="3">22</td></tr>
+			<tr><td class="active col-md-2" >工号</td><td id="id" colspan="3">22</td></tr>
 
-			<tr><td class="active col-md-2" >密码</td><td colspan="3"><p class="button"><a href="javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">修改密码</a></p></td></tr>
+			<tr><td class="active col-md-2" >密码</td><td colspan="3"><p class="button"><a href="javascript:void(0)"  id="click_pop" >修改密码</a></p></td></tr>
 
 	    </table>
 
@@ -58,7 +58,7 @@
 
 <div id="light" class="popup">
     <div class="pop_title">
-    	<img class="error" src="./img/error01.png" alt="" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+    	<img class="error" src="./img/error01.png" alt="" id="click_exist">
     </div>
     <div class="pop_body">
 		<div class="tab_title">
@@ -67,7 +67,7 @@
     </div>
 
 
-	<form action="">
+	<form >
 		<div class="register-box">
 			<label for="username" class="other_label">旧 密 码
 			<input maxlength="20" type="password" placeholder="输入您现在的密码"/>
@@ -110,15 +110,15 @@ $(function(){
 	$('table .change').click(function(){    
         if(!$(this).is('.input')){    
             $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){    
-                var thisid = $(this).parent().siblings("td:eq(0)").text();    
-                var thisvalue=$(this).val();    
-                var thisclass = $(this).parent().attr("class");      
+                // var thisid = $(this).parent().siblings("td:eq(0)").text();    
+                // var thisvalue=$(this).val();    
+                // var thisclass = $(this).parent().attr("class");      
                  
-                $.ajax({    
-                  type: 'POST',    
-                  url: 'update.php',    
-                  data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
-                });    
+                // $.ajax({    
+                //   type: 'POST',    
+                //   url: 'update.php',    
+                //   data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
+                // });    
                 $(this).parent().removeClass('input').html($(this).val() || 0);    
             });                        
         }    
@@ -131,15 +131,15 @@ $(function(){
     $('table .change2').click(function(){    
         if(!$(this).is('.input')){    
             $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){    
-                var thisid = $(this).parent().siblings("td:eq(2)").text();    
-                var thisvalue=$(this).val();    
-                var thisclass = $(this).parent().attr("class");      
+                // var thisid = $(this).parent().siblings("td:eq(2)").text();    
+                // var thisvalue=$(this).val();    
+                // var thisclass = $(this).parent().attr("class");      
                  
-                $.ajax({    
-                  type: 'POST',    
-                  url: 'update.php',    
-                  data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
-                });    
+                // $.ajax({    
+                //   type: 'POST',    
+                //   url: 'update.php',    
+                //   data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
+                // });    
                 $(this).parent().removeClass('input').html($(this).val() || 0);    
             });                        
         }    
@@ -236,33 +236,67 @@ $('.register-box input').eq(2).blur(function(){
 				e.preventDefault();
 				return;
 		}else{
-
 			var oldPwd=$('.register-box input').eq(0).val();
 		    var newPwd=$('.register-box input').eq(2).val();
 		    alert("oldPwd"+oldPwd+"\newPwd="+newPwd);
 
 			$.ajax({
 				type: 'post',
-	            url: '/success/excel',
+	            url: '/emp/passup',
 	            // async:false
 	            data:{"old":oldPwd,"new":newPwd},
-
-
-	            success: function (data) { 
-
-	            	if (data=="0") {
+	            success: function (data) {
+	            	if (data === "0") {
 	            		$('.tips').eq(0).text("密码不正确");
-
 	            	}
-
 	            }
 			});
-
 		}
+	})
+
+
+
+	$('#submit_btn').click(function(){
+		var id=$('#id').text();
+		var name=$('#name').text();
+		var birthday=$('#birthday').text();
+		var sex=$('#sex').text();
+
+		var user1={};
+		user1.id=id;
+		user1.name=name;
+		user1.birthday=birthday;
+		user1.sex=sex;
+		console.log(user1);
+
+		var user2=JSON.stringify(user1);
+		console.log(user2);
+
+
+		$.ajax({
+			url:"/addUser",  //url地址替换
+            type:"POST",
+            data:user2,
+            contentType:"application/json",
+            success:function(data){
+                console.log(data);
+            }
+		});
+	})
+
+
+	$('#click_pop').click(function(){
+		$('#light').css('display','block');
+		$('#fade').css('display','block');
+
 	})		
 		
 
-			
+	$('#click_exist').click(function(){
+		$('#light').css('display','none');
+		$('#fade').css('display','none');
+
+	})	
 		
 
 

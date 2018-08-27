@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Service1</title>
+
+	<style>
+        input {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid grey;
+            outline: none;
+            width: 50px;
+        }
+
+        #k11 {
+            /*固定分级计算方式中，分级金额单元格的长度*/
+            width: 200px;
+        }
+        #bei1{ /*固定备注单元格的长度*/
+            width: 200px;
+        }
+    </style>
+
+    <script language="JavaScript" src="/js/service1.js" ></script>
+    <script>
+
+        window.onload=function () {
+            var xmlHttp=new XMLHttpRequest();
+            xmlHttp.open("POST","<c:url value='/ZServlet1'/>",true);
+            xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xmlHttp.send();
+            xmlHttp.onreadystatechange=function () {
+                if(xmlHttp.readyState===4&&xmlHttp.status===200){
+                    var objJson=xmlHttp.responseText;
+                    objJson=eval('('+xmlHttp.responseText+')');
+                    var arr=new Array();
+                    var arr1=new Array();
+                    var j=0;
+                    for (var i in objJson[0]){
+                        arr[j]=i;
+                        arr1[j]=objJson[0][i];
+                        j++;
+                    }
+                    for (var i = 0; i <arr.length ; i++) {
+                        document.getElementsByName(arr[i])[0].value=arr1[i];
+                        if (i==1)
+                            zk(arr1[i],i);
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+	<form action="/ZServlet1" id="form1" method="post">
+    <div>
+        <table border="1" style="width:80%;margin:0 auto;height :40px;text-align: center">
+            <caption>
+                <span style="color: #FF0000">负债业务</span>考核指标设定
+            </caption>
+
+            <!-- HeadLine  7columns -->
+            <tr>
+                <th>考核项目</th>
+                <th>考核指标</th>
+                <th>权重</th>
+                <th>KPI目标值</th>
+                <th colspan="2">计分方式</th>
+                <th>备注</th>
+            </tr>
+
+            <!-- 指标1  -->
+            <tr>
+                <td rowspan="3">定量考核</td>
+                <td rowspan="3">吸收对公存款日均数</td>
+                <td rowspan="3">    <!-- 权重1 -->
+                    <input name="w1" value="" onKeypress="javascript:if(event.keyCode === 32)event.returnValue = false;" type="text">%
+                </td>
+                <td rowspan="3">   <!-- kpi1 -->
+                    <input name="k1" value="" onchange="zk(this.value,1)" type="text" onKeypress="javascript:if(event.keyCode === 32)event.returnValue = false;">万元
+                </td>
+                <td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>
+                <td id="k11"></td>
+                <!-- <%--等级1--%> -->
+                <td rowspan="3" id="bei1"></td>
+                <!-- <%--备注1--%> -->
+            </tr>
+            <tr>
+                <td>60—&nbsp;&nbsp;90分:</td>
+                <td id="k12"></td>
+                <!-- <%--等级2--%> -->
+            </tr>
+            <tr>
+                <td>90—100分:</td>
+                <td id="k13"></td>
+                <!-- <%--等级3--%> -->
+            </tr>
+
+            <!-- <%--定性考核--%> -->
+            <!-- <%--指标1 --%> -->
+            <tr>
+                <td rowspan="9">定性考核</td>
+                <td rowspan="3">考勤</td>
+                <td rowspan="3">    <!-- <%--权重1--%> -->
+                    <input name="w2" value="" onKeypress="javascript:if(event.keyCode === 32)event.returnValue = false;" type="text">%
+                </td>
+                <td rowspan="3">    <!-- <%--kpi1--%> -->
+                    100(100%)
+                </td>
+                <td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>
+                <td id="k21">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0%——&nbsp;&nbsp;60%，不合格</td><!-- <%--等级1--%> -->
+                <td rowspan="3" id="bei2">
+                    签到天数/考核天数X100%
+                </td>
+                <!-- <%--备注1--%> -->
+            </tr>
+            <tr>
+                <td>60—&nbsp;&nbsp;90分:</td>
+                <td id="k22">60%—&nbsp;&nbsp;90%，合格</td>
+                <!-- <%--等级2--%> -->
+            </tr>
+            <tr>
+                <td>90—100分:</td>
+                <td id="k23">90%—100%，优秀</td>
+                <!-- <%--等级3--%> -->
+            </tr>
+
+            <!-- <%--指标2 --%> -->
+            <tr>
+
+                <td rowspan="3">团队合作</td>
+                <td rowspan="3">    <!-- <%--权重1--%> -->
+                    <input name="w3" onKeypress="javascript:if(event.keyCode === 32)event.returnValue = false;" type="text">%
+                </td>
+                <td rowspan="3">    <!-- <%--kpi1--%> -->
+                    100(A)
+                </td>
+                <td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>
+                <td id="k31">C，不合格</td>
+                <!-- <%--等级1--%> -->
+                <td rowspan="3"  id="bei3">暂无</td>
+               <!--  <%--备注1--%> -->
+            </tr>
+            <tr>
+                <td>60—&nbsp;&nbsp;90分:</td>
+                <td id="k32">B，合格</td>
+                <!-- <%--等级2--%> -->
+            </tr>
+            <tr>
+                <td>90—100分:</td>
+                <td id="k33">A，优秀</td>
+                <!-- <%--等级3--%> -->
+            </tr>
+
+
+            <!-- <%--指标3 --%> -->
+            <tr>
+
+                <td rowspan="3"> 工作态度</td>
+                <td rowspan="3">    <!-- <%--权重1--%> -->
+                    <input name="w4" onKeypress="javascript:if(event.keyCode === 32)event.returnValue = false;" type="text">%
+                </td>
+                <td rowspan="3">    <!-- <%--kpi1--%> -->
+                    100(A)
+                </td>
+                <td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>
+                <td id="k41">C，不合格</td>
+                <!-- <%--等级1--%> -->
+                <td rowspan="3" id="bei4">暂无</td>
+                <!-- <%--备注1--%> -->
+            </tr>
+            <tr>
+                <td>60—&nbsp;&nbsp;90分:</td>
+                <td id="k42">B，合格</td>
+                <!-- <%--等级2--%> -->
+            </tr>
+            <tr>
+                <td>90—100分:</td>
+                <td id="k43">A，优秀</td>
+                <!-- <%--等级3--%> -->
+            </tr>
+
+        </table>
+    </div>
+    <div style="text-align: center">
+        <button type="button" onclick="return check()">提交</button>
+    </div>
+</form>	
+</body>
+</html>

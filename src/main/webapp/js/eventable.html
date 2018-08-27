@@ -65,15 +65,14 @@
                         // 请求数据过程
                         $.ajax({
                             type: 'post',
-                            url: '/success/excel',//请求地址
+                            url: '/EmpMainpage/excel',//请求地址
                             cache: false,
                             data: data,
                             processData: false, //特别注意这个属性不能省
                             contentType: false, //特别注意这个属性不能省
                             dataType: 'json',
                             // 从后端获取data
-                            success: function (data) {  
-
+                            success: function (data) {
                                 obj = eval(data);
                                 console.log(obj);
                                 $('#reportTable').bootstrapTable('refresh',obj);
@@ -172,7 +171,6 @@
     		//  
  
         	$('#reportTable').bootstrapTable({
-            
             locale:'zh-CN',
             datatype:'json',
             contentType:'application/json',
@@ -385,8 +383,6 @@
             ],
             
         });
-
-
 			$(window).resize(function () {
                 $('#reportTable').bootstrapTable('resetView');
             });

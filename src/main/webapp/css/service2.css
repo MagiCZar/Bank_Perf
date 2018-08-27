@@ -1,0 +1,44 @@
+input {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid grey;
+            outline: none;
+            width: 50px;
+        }
+
+#k11 {
+    /*固定分级计算方式中，分级金额单元格的长度*/
+    width: 200px;
+}
+#bei1{ /*固定备注单元格的长度*/
+    width: 200px;
+}
+
+
+
+.title {
+
+    margin-bottom: 20px;
+
+}
+    .title_txt {
+
+        margin-top: 50px;
+        padding-left: 10%;
+        margin-bottom: 0px;
+
+    }
+
+    .title_img {
+
+        padding-left: 10%;
+        margin-top: -10;
+        margin-top: -10px;
+
+    }
+
+
+/*.table-bordered  {
+    border: 2px solid #666;
+}*/

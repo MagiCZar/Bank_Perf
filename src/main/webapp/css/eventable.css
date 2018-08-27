@@ -1,0 +1,122 @@
+
+
+.title {
+
+    margin-bottom: 20px;
+
+}
+    .title_txt {
+
+        margin-top: 50px;
+        padding-left: 10%;
+        margin-bottom: 0px;
+
+    }
+
+    .title_img {
+
+        padding-left: 10%;
+        margin-top: -10;
+        margin-top: -10px;
+
+    }
+
+
+    /*.title{
+
+        width:320px;
+        margin:120px auto 0px auto;
+        line-height:24px;
+        color:#ffd5bc;
+        overflow:hidden
+
+    }*/
+
+
+    .message {
+        position: absolute;
+        right: 10%;
+        top: 50px;
+        /*bottom: 86%;*/
+        /*margin-left: 55%;*/
+        /*margin-top: 2px;*/
+    }
+
+    .message .input{
+
+        width:176px;
+        height:30px;
+        margin-right: 4px;
+        line-height:28px;
+        border:1px solid #b4b4b4;
+        background:#fff;
+        border-radius:3px;
+        padding-left:10px;
+        color:#b4b4b4;
+        font-family:Microsoft YaHei;
+
+    }
+    .message .liulan{
+
+        /*position: absolute;*/
+        width:70px;
+        height:30px;
+        border:1px solid #69f;
+        border-radius:3px;
+        background:#69f;
+        color:#ffffff;
+        /*z-index:1004;*/
+        cursor:pointer;
+    }
+
+    .message #submit{
+
+        width:40px;
+        height:30px;
+        border:1px solid #69f;
+        border-radius:3px;
+        background:#69f;
+        color:#ffffff;
+        /*z-index:1004;*/
+        cursor:pointer;
+    }
+
+    .message .files{
+        position:absolute;
+        left:500px;
+        top:-52px;
+        height:26px;
+        cursor:pointer;
+        /*z-index:1003;*/
+        filter: Alpha(opacity=0);
+        /*-moz-opacity:0;*/
+        /*opacity:0;*/
+    } 
+
+/*    .input_excel{
+
+        float: right;
+    }*/
+
+.content-body {
+
+        width: 80%;
+        height: 100%;
+        position: relative;
+}
+
+.span10 {
+       width: 80%;
+       height: 80%;
+       position: absolute;
+       top: 80px;
+       margin: auto 10% auto 10%;
+}
+
+.bootstrap-table {
+     height: 80%;
+}
+
+.clearfix{
+    height: 50%;
+}

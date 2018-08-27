@@ -16,7 +16,7 @@ public class ListUtil {
                     customer.setCusID(String.valueOf(assetCus.getCusId()));
                     customer.setCusName(assetCus.getCusName());
                     customer.setPhone(assetCus.getPhone());
-                    customer.setType("");
+                    customer.setType("管户净增额");
                     customer.setMoney(String.valueOf(assetCus.getNumber()));
                     customer.setState(state(assetCus.getState()));
                     result.add(customer);
@@ -29,7 +29,7 @@ public class ListUtil {
                     customer.setCusID(String.valueOf(liaCus.getCusId()));
                     customer.setCusName(liaCus.getCusName());
                     customer.setPhone(liaCus.getPhone());
-                    customer.setType("");
+                    customer.setType("对公存款");
                     customer.setMoney(String.valueOf(liaCus.getNumber()));
                     customer.setState(state(liaCus.getState()));
                     result.add(customer);
@@ -63,6 +63,43 @@ public class ListUtil {
                 return result;
         }
         return result;
+    }
+
+    public static List<Integer> perf(List list,int id){
+        List<Integer> list1 = new ArrayList<>();
+        switch (id/1000){
+            case 11:
+                AssetEmp assetEmp = (AssetEmp) list.get(0);
+                list1.add(assetEmp.getLoan());
+                list1.add(assetEmp.getAttendance());
+                list1.add(assetEmp.getPerform());
+                break;
+            case 12:
+                LiaEmp liaEmp = (LiaEmp)list.get(0);
+                list1.add(liaEmp.getMaleDep());
+                list1.add(liaEmp.getAttendance());
+                list1.add(liaEmp.getPerform());
+                break;
+            case 14:
+                PersonEmp personEmp = (PersonEmp)list.get(0);
+                list1.add(personEmp.getPerdebt());
+                list1.add(personEmp.getPerloan());
+                list1.add(personEmp.getPerpay());
+                list1.add(personEmp.getAgentserv());
+                list1.add(personEmp.getAttendance());
+                list1.add(personEmp.getPerform());
+                break;
+            case 13:
+                MiddleEmp middleEmp = (MiddleEmp)list.get(0);
+                list1.add(middleEmp.getFinancing());
+                list1.add(middleEmp.getInvest());
+                list1.add(middleEmp.getGuarantee());
+                list1.add(middleEmp.getCash());
+                list1.add(middleEmp.getAttendance());
+                list1.add(middleEmp.getPerform());
+                break;
+        }
+        return list1;
     }
 
     private static String state(byte state){

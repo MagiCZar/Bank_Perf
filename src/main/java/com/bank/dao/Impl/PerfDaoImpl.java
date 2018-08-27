@@ -2,6 +2,7 @@ package com.bank.dao.Impl;
 
 import com.bank.bean.*;
 import com.bank.dao.PerfDao;
+import com.bank.util.CriteriaUtil;
 import com.bank.util.PerfUtil;
 import lombok.Getter;
 import org.hibernate.criterion.DetachedCriteria;
@@ -23,45 +24,33 @@ public class PerfDaoImpl implements PerfDao {
     @Override
     public String updatePerf(int id) {
         String message;
-        List list;
-        Performance performance;
-        int num[];
-        int perf;
         byte state = 1;
+        Performance performance;
+        DetachedCriteria criteria = CriteriaUtil.criteria(id);
+        criteria.add(Restrictions.eq("empId",id));
+        criteria.add(Restrictions.eq("state",state));
+        List list = this.getHibernateTemplate().findByCriteria(criteria);
+        int num[] = PerfUtil.numCal(id,list);
+        int perf;
         try {
             switch (id/1000){
                 case 11:
                     AssetEmp assetEmp = this.getHibernateTemplate().get(AssetEmp.class,id);
-                    DetachedCriteria assCus = DetachedCriteria.forClass(AssetCus.class);
-                    assCus.add(Restrictions.eq("empId",id));
-                    assCus.add(Restrictions.eq("state",state));
-                    list = this.getHibernateTemplate().findByCriteria(assCus);
                     performance = this.getHibernateTemplate().get(Performance.class,1);
-                    num = PerfUtil.numCal(id,list);
                     perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(assetEmp).getAttendance(),performance);
                     assetEmp.setPerform(perf);
                     assetEmp.setLoan(num[0]);
                     break;
                 case 12:
                     LiaEmp liaEmp = this.getHibernateTemplate().get(LiaEmp.class,id);
-                    DetachedCriteria liaCus = DetachedCriteria.forClass(LiaCus.class);
-                    liaCus.add(Restrictions.eq("empId",id));
-                    liaCus.add(Restrictions.eq("state",state));
-                    list = this.getHibernateTemplate().findByCriteria(liaCus);
                     performance = this.getHibernateTemplate().get(Performance.class,2);
-                    num = PerfUtil.numCal(id,list);
                     perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(liaEmp).getAttendance(),performance);
                     liaEmp.setPerform(perf);
                     liaEmp.setMaleDep(num[0]);
                     break;
                 case 13:
                     MiddleEmp middleEmp = this.getHibernateTemplate().get(MiddleEmp.class,id);
-                    DetachedCriteria midCus = DetachedCriteria.forClass(MiddleCus.class);
-                    midCus.add(Restrictions.eq("empId",id));
-                    midCus.add(Restrictions.eq("state",state));
-                    list = this.getHibernateTemplate().findByCriteria(midCus);
                     performance = this.getHibernateTemplate().get(Performance.class,3);
-                    num = PerfUtil.numCal(id,list);
                     perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(middleEmp).getAttendance(),performance);
                     middleEmp.setPerform(perf);
                     middleEmp.setFinancing(num[0]);
@@ -71,12 +60,7 @@ public class PerfDaoImpl implements PerfDao {
                     break;
                 case 14:
                     PersonEmp perEmp = this.getHibernateTemplate().get(PersonEmp.class,id);
-                    DetachedCriteria perCus = DetachedCriteria.forClass(PersonCus.class);
-                    perCus.add(Restrictions.eq("empId",id));
-                    perCus.add(Restrictions.eq("state",state));
-                    list = this.getHibernateTemplate().findByCriteria(perCus);
                     performance = this.getHibernateTemplate().get(Performance.class,4);
-                    num = PerfUtil.numCal(id,list);
                     perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(perEmp).getAttendance(),performance);
                     perEmp.setPerform( perf);
                     perEmp.setPerdebt(num[0]);
@@ -102,6 +86,12 @@ public class PerfDaoImpl implements PerfDao {
             message = "error";
         }
         return message;
+    }
+
+    @Override
+    public List perfLoad(int id) {
+        DetachedCriteria criteria = CriteriaUtil.Emp(id);
+        return this.getHibernateTemplate().findByCriteria(criteria);
     }
 
 
