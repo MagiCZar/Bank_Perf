@@ -2,6 +2,7 @@ package com.bank.dao.Impl;
 
 import com.bank.bean.*;
 import com.bank.dao.InfUpdateDao;
+import com.bank.util.CriteriaUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.criterion.DetachedCriteria;
@@ -9,8 +10,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository("infDao")
 public class InfUpdateDaoImpl implements InfUpdateDao {
@@ -23,27 +26,28 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
     }
 
     @Override
+    @Transactional
     public String passUp(int id, String pass) {
-
-        Login login = new Login();
-        login.setId(id);
+        Login login = this.getHibernateTemplate().get(Login.class,id);
+        System.out.println(login.getPassword());
         login.setPassword(pass);
         try {
             this.getHibernateTemplate().update(login);
-            message = "密码修改成功！";
+            message = "success！";
         }catch (Exception e){
-            message = "密码修改失败！";
+            e.printStackTrace();
+            message = "error！";
         }
         return message;
     }
 
     @Override
+    @Transactional
     public String infUp(int id, String name, Date birthday, String sex) {
         java.sql.Date birth = new java.sql.Date(birthday.getTime());
         switch (id/1000){
             case 11:
-                AssetEmp assetEmp = new AssetEmp();
-                assetEmp.setId(id);
+                AssetEmp assetEmp = this.getHibernateTemplate().get(AssetEmp.class,id);
                 assetEmp.setBirthday(birth);
                 assetEmp.setSex(sex);
                 assetEmp.setName(name);
@@ -51,6 +55,7 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
                     this.getHibernateTemplate().update(assetEmp);
                     message = "个人信息更新成功！";
                 }catch (Exception e1){
+                    e1.printStackTrace();
                     message = "个人信息更新失败！";
                 }
                 break;
@@ -114,6 +119,13 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
     public boolean CheckPass(int id, String pass) {
         Login login = this.hibernateTemplate.get(Login.class,id);
         return login.getPassword().equals(pass);
+    }
+
+    @Override
+    public List inf_load(int id) {
+        DetachedCriteria criteria = CriteriaUtil.Emp(id);
+        criteria.add(Restrictions.eq("id",id));
+        return this.getHibernateTemplate().findByCriteria(criteria);
     }
 
 

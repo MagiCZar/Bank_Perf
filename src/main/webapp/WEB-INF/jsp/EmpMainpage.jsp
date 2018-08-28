@@ -90,7 +90,7 @@ To change this template use File | Settings | File Templates.
 <!--内容部分-->
 <div id="main" >
     <div   style="-webkit-overflow-scrolling:touch;overflow:auto;height: 100%;">
-        <iframe class="scroll"  src="anchor/table.html" id="ghrzFrame"  frameborder="no" border="0"></iframe>
+        <iframe class="scroll" name="ifr" src="" id="ghrzFrame"  frameborder="no" border="0"></iframe>
         <!-- 此数的src 填success -->
     </div>
 </div>
@@ -99,6 +99,10 @@ To change this template use File | Settings | File Templates.
 
 
 <script>
+
+    var res;
+    var obj = [];
+
     //首次加载至url
     var u = window.location.href.split('#')[1]; //以“#”拆分当前url，取第二部分
     $('#main iframe').attr('src',u);   //attr 对src属性进行设置
@@ -162,6 +166,38 @@ To change this template use File | Settings | File Templates.
         $("#login-user-output").html(oneValues());
     })
 
+    function a(){
+        var idvalue=$('.welcome p').text();
+        var idint=parseInt(idvalue);
+        $.ajax({
+            url:'/emp/infload',  //url地址替换
+            type:'post',
+            data:{'id':idint},
+            cache:false,
+            // async:false,
+            success:function (data) {
+                res = data;
+            }
+        });
+    }
+
+    function cus(){
+        var idvalue=$('.welcome p').text();
+        var idint=parseInt(idvalue);
+        $.ajax({
+            type: 'post',
+            url: '/emp/cus',//请求地址
+            cache: false,
+            data: {'id':idint},
+            processData: false, //特别注意这个属性不能省
+            contentType: false, //特别注意这个属性不能省
+            dataType: 'json',
+            // async:false,
+            success:function (data) {
+                obj = eval(data);
+            }
+        });
+    }
 
 </script>
 

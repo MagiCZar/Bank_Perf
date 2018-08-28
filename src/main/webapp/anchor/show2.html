@@ -48,19 +48,6 @@
             //         }
             //     }
             // }
-            $.ajax({
-                type: 'post',
-                url: '/emp/perfload',//请求地址
-                cache: false,
-                data: data,
-                processData: false, //特别注意这个属性不能省
-                contentType: false, //特别注意这个属性不能省
-                dataType: 'json',
-                success: function (data) {
-                    obj = eval(data);
-                    console.log(obj);
-                }
-            })
         }
     </script>
     
@@ -191,60 +178,60 @@
             <!-- <%--等级3--%> -->
         </tr>
 
-        <!-- <%--指标2 --%> -->
-        <tr>
+        <!--&lt;!&ndash; <%&#45;&#45;指标2 &#45;&#45;%> &ndash;&gt;-->
+        <!--<tr>-->
 
-            <td rowspan="3">团队合作</td>
-            <td rowspan="3"id="w6">    <!-- <%--权重1--%> -->
-            </td>
-            <td rowspan="3">    <!-- <%--kpi1--%> -->
-                100(A)
-            </td>
-            <td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>
-            <td id="k61">C，不合格</td>
-            <!-- <%--等级1--%> -->
-            <td rowspan="3"id="r6"></td>
-            <td rowspan="3" id="bei6">暂无</td>
-            <!-- <%--备注6--%> -->
-        </tr>
-        <tr>
-            <td>60—&nbsp;&nbsp;90分:</td>
-            <td id="k62">B，合格</td>
-            <!-- <%--等级2--%> -->
-        </tr>
-        <tr>
-            <td>90—100分:</td>
-            <td id="k63">A，优秀</td>
-            <!-- <%--等级3--%> -->
-        </tr>
+            <!--<td rowspan="3">团队合作</td>-->
+            <!--<td rowspan="3"id="w6">    &lt;!&ndash; <%&#45;&#45;权重1&#45;&#45;%> &ndash;&gt;-->
+            <!--</td>-->
+            <!--<td rowspan="3">    &lt;!&ndash; <%&#45;&#45;kpi1&#45;&#45;%> &ndash;&gt;-->
+                <!--100(A)-->
+            <!--</td>-->
+            <!--<td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>-->
+            <!--<td id="k61">C，不合格</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;等级1&#45;&#45;%> &ndash;&gt;-->
+            <!--<td rowspan="3"id="r6"></td>-->
+            <!--<td rowspan="3" id="bei6">暂无</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;备注6&#45;&#45;%> &ndash;&gt;-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>60—&nbsp;&nbsp;90分:</td>-->
+            <!--<td id="k62">B，合格</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;等级2&#45;&#45;%> &ndash;&gt;-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>90—100分:</td>-->
+            <!--<td id="k63">A，优秀</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;等级3&#45;&#45;%> &ndash;&gt;-->
+        <!--</tr>-->
 
 
-        <!-- <%--指标3 --%> -->
-        <tr>
+        <!--&lt;!&ndash; <%&#45;&#45;指标3 &#45;&#45;%> &ndash;&gt;-->
+        <!--<tr>-->
 
-            <td rowspan="3"> 工作态度</td>
-            <td rowspan="3"id="w7">    <!-- <%--权重1--%> -->
-            </td>
-            <td rowspan="3">    <!-- <%--kpi1--%> -->
-                100(A)
-            </td>
-            <td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>
-            <td id="k71">C，不合格</td>
-            <!-- <%--等级1--%> -->
-            <td rowspan="3"id="r7"></td>
-            <td rowspan="3" id="bei7">暂无</td>
-            <!-- <%--备注7--%> -->
-        </tr>
-        <tr>
-            <td>60—&nbsp;&nbsp;90分:</td>
-            <td id="k72">B，合格</td>
-            <!-- <%--等级2--%> -->
-        </tr>
-        <tr>
-            <td>90—100分:</td>
-            <td id="k73">C，优秀</td>
-            <!-- <%--等级3--%> -->
-        </tr>
+            <!--<td rowspan="3"> 工作态度</td>-->
+            <!--<td rowspan="3"id="w7">    &lt;!&ndash; <%&#45;&#45;权重1&#45;&#45;%> &ndash;&gt;-->
+            <!--</td>-->
+            <!--<td rowspan="3">    &lt;!&ndash; <%&#45;&#45;kpi1&#45;&#45;%> &ndash;&gt;-->
+                <!--100(A)-->
+            <!--</td>-->
+            <!--<td>&nbsp;&nbsp;0—&nbsp;&nbsp;60分:</td>-->
+            <!--<td id="k71">C，不合格</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;等级1&#45;&#45;%> &ndash;&gt;-->
+            <!--<td rowspan="3"id="r7"></td>-->
+            <!--<td rowspan="3" id="bei7">暂无</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;备注7&#45;&#45;%> &ndash;&gt;-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>60—&nbsp;&nbsp;90分:</td>-->
+            <!--<td id="k72">B，合格</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;等级2&#45;&#45;%> &ndash;&gt;-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>90—100分:</td>-->
+            <!--<td id="k73">C，优秀</td>-->
+            <!--&lt;!&ndash; <%&#45;&#45;等级3&#45;&#45;%> &ndash;&gt;-->
+        <!--</tr>-->
     </table>
 </div>
 </body>

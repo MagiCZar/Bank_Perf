@@ -1,9 +1,11 @@
 package com.bank.controller;
 
 import com.bank.bean.Customer;
+import com.bank.bean.Information;
 import com.bank.service.ExcelService;
 import com.bank.service.InforUpdateService;
 import com.bank.service.PerfUpService;
+import com.bank.util.InfTransUtil;
 import com.bank.util.ListUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,18 @@ public class EmpMainController {
     }
 
     /**
-        * @ TODO: 2018/8/27 导入文件
+     * TODO: 2018/8/27 导入客户
+     */
+    @RequestMapping(value = "/cus", method = {RequestMethod.POST})
+    @ResponseBody
+    public List<Customer> CusLoad(@RequestParam int id){
+        System.out.println("花Q！");
+        return ListUtil.listTrans(id,excelService.load(id));
+    }
+
+
+    /**
+        * TODO: 2018/8/27 导入文件
      */
     @RequestMapping(value = "/excel", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
@@ -49,7 +62,7 @@ public class EmpMainController {
     }
 
     /**
-     * @ TODO: 2018/8/27 修改密码
+     * TODO: 2018/8/27 修改密码
      */
     @RequestMapping("/passup")
     @ResponseBody
@@ -57,26 +70,45 @@ public class EmpMainController {
                          @RequestParam(value = "old",required = false)String old_pass,
                          @RequestParam(value = "new",required = false)String new_pass) {
         String message;
+        System.out.println("id="+id+"\noldPwd="+old_pass+"\newPwd="+new_pass);
         if (inforUpdateService.CheckPass(id, old_pass)) {
-            try {
-                inforUpdateService.passUpdate(id,new_pass);
-                message = "1";
-            } catch (Exception e) {
-                message = "failed";
-            }
+            message = inforUpdateService.passUpdate(id,new_pass);
         }else {
-            return "0";
+            message = "Incorrect password!";
     }
+        System.out.println(message);
         return message;
     }
 
     /**
-     * @ TODO: 2018/8/27 加载绩效
+     * TODO: 2018/8/27 加载绩效
      */
     @RequestMapping("/perfload")
     @ResponseBody
     public List<Integer> PerfLoad(@RequestParam int id){
         return ListUtil.perf(perfUpService.perfLoad(id),id);
+    }
+
+    /**
+     * TODO: 2018/8/27 加载个人信息
+     */
+    @RequestMapping("/infload")
+    @ResponseBody
+    public Information Infload(@RequestParam int id){
+        System.out.println(InfTransUtil.inf_trans(inforUpdateService.inf_load(id),id));
+        return InfTransUtil.inf_trans(inforUpdateService.inf_load(id),id);
+    }
+
+    /**
+     * TODO: 2018/8/27 更新个人信息
+     */
+    @RequestMapping("/infup")
+    @ResponseBody
+    public String Infup(@RequestParam int id,
+                        @RequestParam String name,
+                        @RequestParam String birth,
+                        @RequestParam String sex){
+        return inforUpdateService.infUpdate(id,name,birth,sex);
     }
 
     private final PerfUpService perfUpService;

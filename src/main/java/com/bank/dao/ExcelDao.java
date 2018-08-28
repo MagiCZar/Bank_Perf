@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface ExcelDao {
     List update(List<List> list,int id);
+    List load(int id);
 }

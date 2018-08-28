@@ -22,6 +22,12 @@ import java.util.*;
  */
 @Service
 public class ExcelServiceImpl implements ExcelService {
+    @Autowired
+    public ExcelServiceImpl(ExcelDao excelDao, PerfDao perfDao) {
+        this.excelDao = excelDao;
+        this.perfDao = perfDao;
+    }
+
     //导入文件并写入数据库
     @Transactional
     @Override
@@ -35,6 +41,12 @@ public class ExcelServiceImpl implements ExcelService {
             return list;
         }
 
+    }
+
+    @Override
+    public List load(int id) {
+//        System.out.println(excelDao.load(id));
+        return excelDao.load(id);
     }
 
     //读取文件
@@ -63,14 +75,8 @@ public class ExcelServiceImpl implements ExcelService {
                     Row row1 = sheet.getRow(j);
                     getCellsValue(sheetRow,row1,lcn);
                     list.add(sheetRow);
-//                    System.out.println("--------------------------------------");
-//                    System.out.println(list);
-//                    System.out.println("--------------------------------------");
                 }
             }
-//            System.out.println("--------------------------------------");
-//            System.out.println(list);
-//            System.out.println("--------------------------------------");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,9 +115,6 @@ public class ExcelServiceImpl implements ExcelService {
         }
     }
 
-    @Autowired
-    ExcelDao excelDao;
-
-    @Autowired
-    PerfDao perfDao;
+    private final ExcelDao excelDao;
+    private final PerfDao perfDao;
 }

@@ -35,8 +35,11 @@ public class CriteriaUtil {
             case 13:
                 idCount = DetachedCriteria.forClass(MiddleEmp.class);
                 break;
-            default:
+            case 14:
                 idCount = DetachedCriteria.forClass(PersonEmp.class);
+                break;
+            default:
+                idCount = DetachedCriteria.forClass(Manager.class);
                 break;
         }
         return idCount;

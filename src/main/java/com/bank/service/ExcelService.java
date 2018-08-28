@@ -8,4 +8,5 @@ import java.util.List;
  */
 public interface ExcelService {
     List uplode(File file,int id);
+    List load(int id);
 }

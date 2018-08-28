@@ -107,16 +107,17 @@
     </bean>
 
     <!-- 事务 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:advice id="txAdvice2">
         <tx:attributes>
-            <tx:method name="*"/>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="select*" read-only="true"/>
-            <tx:method name="delete*" propagation="REQUIRED"/>
-            <tx:method name="update*" propagation="REQUIRED"/>
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="do*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="save*" rollback-for="Exception" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="mod*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="ins*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+            <tx:method name="invoke" propagation="REQUIRES_NEW" rollback-for="Exception" />
+            <tx:method name="*" propagation="SUPPORTS" read-only="true" />
         </tx:attributes>
     </tx:advice>
     <!-- 事务入口 -->

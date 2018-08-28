@@ -37,11 +37,11 @@
 
 			<tr><th class="info" colspan="4">个人信息</th></tr>
 
-			<tr><td class="active col-md-2">姓名</td><td id="name" class="change col-md-4">张三</td><td class="active col-md-2">年龄</td><td id="birthday" class="change2">22</td></tr>
+			<tr><td class="active col-md-2">姓名</td><td id="name" class="change col-md-4"></td><td class="active col-md-2">生日</td><td id="birthday" class="change2"></td></tr>
 
-			<tr><td class="active col-md-2">性别</td><td id="sex" class="change col-md-4">张三</td><td class="active col-md-2">科室</td><td >22</td></tr>
+			<tr><td class="active col-md-2">性别</td><td id="sex" class="change col-md-4"></td><td class="active col-md-2">科室</td><td id="room"></td></tr>
 
-			<tr><td class="active col-md-2" >工号</td><td id="id" colspan="3">22</td></tr>
+			<tr><td class="active col-md-2" >工号</td><td id="id" colspan="3"></td></tr>
 
 			<tr><td class="active col-md-2" >密码</td><td colspan="3"><p class="button"><a href="javascript:void(0)"  id="click_pop" >修改密码</a></p></td></tr>
 
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 		<div class="submit_area2">
-					<button class="submit_button2" type="submit" id="submit_btn2">保 存 修 改</button>
+					<button class="submit_button2" type="button" id="submit_btn2">保 存 修 改</button>
 				</div>
 	</form>
     </div>
@@ -105,7 +105,10 @@
 
 <div id="fade" class="black_overlay"></div>
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
+    var userobj;
+
 $(function(){
 	$('table .change').click(function(){    
         if(!$(this).is('.input')){    
@@ -161,7 +164,7 @@ $(function(){
 
 	$('.register-box input').eq(1).focus(function(){
 		if($(this).val().length==0){
-		    $(this).parent().next("div").text("建议使用字母、数字和符号两种以上的组合，6-20个字符");
+		    $(this).parent().next("div").text("建议使用字母、数字和符号两种以上的组合，5-20个字符");
 		}
 	})
 
@@ -176,8 +179,8 @@ $(function(){
 		if($(this).val().length==0){
 			$(this).parent().next("div").text("");
 			$(this).parent().next("div").css("color",'#ccc');
-		}else if($(this).val().length>0 && $(this).val().length<6){
-			$(this).parent().next("div").text("长度只能在6-20个字符之间");
+		}else if($(this).val().length>0 && $(this).val().length<5){
+			$(this).parent().next("div").text("长度只能在5-20个字符之间");
 			$(this).parent().next("div").css("color",'red');
 		}else{
 			$(this).parent().next("div").text("");
@@ -189,8 +192,8 @@ $(function(){
 		if($(this).val().length==0){
 			$(this).parent().next("div").text("");
 			$(this).parent().next("div").css("color",'#ccc');
-		}else if($(this).val().length>0 && $(this).val().length<6){
-			$(this).parent().next("div").text("长度只能在6-20个字符之间");
+		}else if($(this).val().length>0 && $(this).val().length<5){
+			$(this).parent().next("div").text("长度只能在5-20个字符之间");
 			$(this).parent().next("div").css("color",'red');
 		}else{
 			$(this).parent().next("div").text("");
@@ -238,21 +241,28 @@ $('.register-box input').eq(2).blur(function(){
 		}else{
 			var oldPwd=$('.register-box input').eq(0).val();
 		    var newPwd=$('.register-box input').eq(2).val();
-		    alert("oldPwd"+oldPwd+"\newPwd="+newPwd);
-
+            var id=$('.table #id').text();
+            // alert("id="+id+"\noldPwd="+oldPwd+"\newPwd="+newPwd);
 			$.ajax({
 				type: 'post',
 	            url: '/emp/passup',
 	            // async:false
-	            data:{"old":oldPwd,"new":newPwd},
-	            success: function (data) {
-	            	if (data === "0") {
-	            		$('.tips').eq(0).text("密码不正确");
-	            	}
+                data:{"id":id,"old":oldPwd,"new":newPwd},
+                success: function (data) {
+	            	// if (data === "0") {
+	            	// 	$('.tips').eq(0).text("密码不正确");
+                    //     e.preventDefault();
+	            	// }else {
+	            	    alert(data);
+	            	    if (data !== "Incorrect password!") {
+                            $('#light').css('display','none');
+                            $('#fade').css('display','none');
+                        }
+                    // }
 	            }
 			});
 		}
-	})
+	});
 
 
 
@@ -296,8 +306,37 @@ $('.register-box input').eq(2).blur(function(){
 		$('#light').css('display','none');
 		$('#fade').css('display','none');
 
-	})	
-		
+	})
+
+
+$(document).ready(function() {
+    // $.ajax({
+    //     url: '/emp/infload',
+    //     type: 'get',
+    //     datatype: 'json',
+    //     cache: false,
+    //     success: function (data) {
+    //         var userobj = data;
+    //         console.log(data);
+    //         console.log(userobj);
+    //         $('.table #name').text(userobj.name);
+    //         $('.table #birthday').text(userobj.birthday);
+    //         $('.table #sex').text(userobj.sex);
+    //         $('.table #id').text(userobj.id);
+    //         $('.table #room').text(userobj.room);
+    //     }
+    // });
+    parent.window.a();
+    // var userobj = window.parent.res;
+    setTimeout(function () {
+        var userobj = window.parent.res;
+        $('.table #name').text(userobj.name);
+        $('.table #birthday').text(userobj.birthday);
+        $('.table #sex').text(userobj.sex);
+        $('.table #id').text(userobj.id);
+        $('.table #room').text(userobj.room);
+    },200);
+})
 
 
 		

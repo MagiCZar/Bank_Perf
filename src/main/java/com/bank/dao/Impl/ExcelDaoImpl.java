@@ -2,6 +2,7 @@ package com.bank.dao.Impl;
 
 import com.bank.bean.*;
 import com.bank.dao.ExcelDao;
+import com.bank.util.CriteriaUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ import java.util.List;
  */
 @Repository("excelDao")
 public class ExcelDaoImpl implements ExcelDao {
+    @Autowired
+    public ExcelDaoImpl(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
+
     @Override
     public List update(List<List> list,int id) {
 //        int id = Integer.parseInt(list.get(0).get(0).toString())/1000;
@@ -51,7 +57,7 @@ public class ExcelDaoImpl implements ExcelDao {
                         liaCus.setUpday(date);
                         this.getHibernateTemplate().saveOrUpdate(liaCus);
                     }
-                    DetachedCriteria liaCus = DetachedCriteria.forClass(AssetCus.class);
+                    DetachedCriteria liaCus = DetachedCriteria.forClass(LiaCus.class);
                     liaCus.add(Restrictions.eq("empId",id));
                     return this.getHibernateTemplate().findByCriteria(liaCus);
                 case 13:
@@ -67,7 +73,7 @@ public class ExcelDaoImpl implements ExcelDao {
                         middleCus.setUpday(date);
                         this.getHibernateTemplate().saveOrUpdate(middleCus);
                     }
-                    DetachedCriteria midCus = DetachedCriteria.forClass(AssetCus.class);
+                    DetachedCriteria midCus = DetachedCriteria.forClass(MiddleCus.class);
                     midCus.add(Restrictions.eq("empId",id));
                     return this.getHibernateTemplate().findByCriteria(midCus);
                 case 14:
@@ -83,7 +89,7 @@ public class ExcelDaoImpl implements ExcelDao {
                         personCus.setUpday(date);
                         this.getHibernateTemplate().saveOrUpdate(personCus);
                     }
-                    DetachedCriteria perCus = DetachedCriteria.forClass(AssetCus.class);
+                    DetachedCriteria perCus = DetachedCriteria.forClass(PersonCus.class);
                     perCus.add(Restrictions.eq("empId",id));
                     return this.getHibernateTemplate().findByCriteria(perCus);
                 default:
@@ -91,16 +97,17 @@ public class ExcelDaoImpl implements ExcelDao {
             }
     }
 
-
-
-    @Autowired
-    private HibernateTemplate hibernateTemplate;
-
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
+    @Override
+    public List load(int id) {
+        DetachedCriteria criteria = CriteriaUtil.criteria(id);
+        criteria.add(Restrictions.eq("empId",id));
+        System.out.println(criteria);
+        return this.getHibernateTemplate().findByCriteria(criteria);
     }
 
-    public HibernateTemplate getHibernateTemplate() {
+
+    private final HibernateTemplate hibernateTemplate;
+    private HibernateTemplate getHibernateTemplate() {
         return hibernateTemplate;
     }
 }
