@@ -1,3 +1,5 @@
+import com.bank.service.CusChangeService;
+import com.bank.service.EmpLoadService;
 import com.bank.service.ExcelService;
 import com.bank.service.Impl.InforUpdateServiceImpl;
 import com.bank.service.InforUpdateService;
@@ -17,6 +19,10 @@ public class ServiceTest {
     private InforUpdateService inforUpdateService;
     @Autowired
     private ExcelService excelService;
+    @Autowired
+    private CusChangeService cusChangeService;
+    @Autowired
+    private EmpLoadService empLoadService;
 
     @Test
 //    @Transactional
@@ -24,6 +30,8 @@ public class ServiceTest {
 //        System.out.println(InfTransUtil.inf_trans(inforUpdateService.inf_load(14001),14001));
 //        System.out.println(ListUtil.listTrans(11001,excelService.load(11001)));
 //        System.out.println(inforUpdateService.passUpdate(11001,"123456"));
-        System.out.println(inforUpdateService.infUpdate(11001,"王大锤","1995-03-02","男"));
+//        System.out.println(inforUpdateService.infUpdate(11001,"王大锤","1995-03-02","男"));
+//        System.out.println(cusChangeService.cusChange(11002,11001));
+        System.out.println(empLoadService.empLoad(24001));
     }
 }

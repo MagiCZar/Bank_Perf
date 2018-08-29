@@ -35,12 +35,10 @@ public class LoginController {
 //            model = new ModelAndView("redirect:/success");
             if (id > 10000 && id < 20000){
                 loginService.sign(id);
-                List<Customer> list = ListUtil.listTrans(id,loginService.cus(id));
-                model.addObject("list",list);
                 model.setViewName("EmpMainpage.jsp");
 //                System.out.println(list);
-            }else if (id > 20000 && id < 30000){
-
+            }else {
+                model.setViewName("MngMainpage.jsp");
             }
             model.addObject("id",id);
 //            System.out.println("\n \t提交表单\n");

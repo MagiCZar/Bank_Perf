@@ -65,6 +65,58 @@ public class ListUtil {
         return result;
     }
 
+    public static List<Emp> listTran(int id,List list){
+        List<Emp> result = new ArrayList<>();
+        Emp emp = new Emp();
+        switch (id/1000){
+            case 21:
+                for (Object aList : list) {
+                    AssetEmp assetEmp = (AssetEmp) aList;
+                    emp.setId(assetEmp.getId());
+                    emp.setName(assetEmp.getName());
+                    emp.setRoom("资产科");
+                    emp.setPerform(assetEmp.getPerform());
+                    emp.setAttendance(assetEmp.getAttendance());
+                    result.add(emp);
+                }
+                break;
+            case 22:
+                for (Object aList : list) {
+                    LiaEmp liaEmp = (LiaEmp)aList;
+                    emp.setId(liaEmp.getId());
+                    emp.setName(liaEmp.getName());
+                    emp.setRoom("负债科");
+                    emp.setPerform(liaEmp.getPerform());
+                    emp.setAttendance(liaEmp.getAttendance());
+                    result.add(emp);
+                }
+                break;
+            case 23:
+                for (Object aList : list) {
+                    MiddleEmp middleEmp = (MiddleEmp)aList;
+                    emp.setId(middleEmp.getId());
+                    emp.setName(middleEmp.getName());
+                    emp.setRoom("中间科");
+                    emp.setPerform(middleEmp.getPerform());
+                    emp.setAttendance(middleEmp.getAttendance());
+                    result.add(emp);
+                }
+                break;
+            case 24:
+                for (Object aList : list) {
+                    PersonEmp personEmp = (PersonEmp)aList;
+                    emp.setId(personEmp.getId());
+                    emp.setName(personEmp.getName());
+                    emp.setRoom("个人科");
+                    emp.setPerform(personEmp.getPerform());
+                    emp.setAttendance(personEmp.getAttendance());
+                    result.add(emp);
+                }
+                break;
+        }
+        return result;
+    }
+
     public static List<Integer> perf(List list,int id){
         List<Integer> list1 = new ArrayList<>();
         switch (id/1000){
@@ -109,4 +161,6 @@ public class ListUtil {
             return "已完成";
         }
     }
+
+
 }

@@ -101,8 +101,6 @@
 	
 </div>
 
-</div>
-
 <div id="fade" class="black_overlay"></div>
 
 <script type="text/javascript">
@@ -112,16 +110,7 @@
 $(function(){
 	$('table .change').click(function(){    
         if(!$(this).is('.input')){    
-            $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){    
-                // var thisid = $(this).parent().siblings("td:eq(0)").text();    
-                // var thisvalue=$(this).val();    
-                // var thisclass = $(this).parent().attr("class");      
-                 
-                // $.ajax({    
-                //   type: 'POST',    
-                //   url: 'update.php',    
-                //   data: "thisid="+thisid+"&thisclass="+thisclass+"&thisvalue="+thisvalue    
-                // });    
+            $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){
                 $(this).parent().removeClass('input').html($(this).val() || 0);    
             });                        
         }    
@@ -343,9 +332,7 @@ $(document).ready(function() {
 
    
 
-</script>    
+</script>
 
-</table>
-	
 </body>
 </html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>emytable</title>
+	<!-- 引入bootstrap样式 -->
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<!-- 引入bootstrap-table样式 -->
+	<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+
+	<!-- jquery -->
+	<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<!-- bootstrap-table.min.js -->
+	<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+	<!-- 引入中文语言包 -->
+	<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+	<link rel="stylesheet" href="css/emytable.css">
+</head>
+<body>
+	<div>
+		<div class="title">
+			<h4 class="title_txt">员工信息管理</h4>
+			<img class="title_img" src="img/title_img2.png" alt="">
+		</div>
+	</div>
+
+	<div class="message">
+				<button class="add">添加员工</button>
+				<button class="exchange">业务转移</button>
+			</div>
+
+	<div id="content-body">
+        <div id="reportTableDiv" class="span10">
+            <table id="reportTable">
+            </table>
+        </div>
+    </div>
+
+
+    <div id="light" class="popup">
+    	<div class="pop_title">
+    		<img class="error" src="./img/error01.png" alt="" id="click_exist">
+    	</div>
+    	<div class="pop_body">
+			<div class="tab_title">
+				<h4 class="title_txt">业务转移</h4>
+				<img class="title_img" src="img/title_img.png" alt="">
+	    	</div>
+    	</div>
+
+    	<div class="exchange_body">
+    	    <div class="old_box">
+    	    	<input type="text" class="old" value="键入要转移的工号">
+    	    </div>
+    	    <div class="img_box" >
+    	    	<img src="./img/exchange.png" alt="" class="change_img">
+    	    </div>
+    	    <div class="new_box" >
+    	    	<input type="text" class="new" value="键入要转入的工号">
+    	    </div>
+
+    	    <div class="submit_area2">
+				<button class="submit_button2" type="button" id="submit_btn2">确 定 转 移</button>
+			</div>
+    	        	     
+    	</div>
+
+    </div>
+
+    <div id="fade" class="black_overlay"></div>
+
+    <script type="text/javascript">
+    	// $(document).ready(function()){
+    	// 
+
+
+    	$(document).ready(function(){
+            parent.window.emp();   // 父页面cus()封装获取ID的ajax
+            setTimeout(function load() {
+                var load = window.parent.obj;   //父页面全局变量
+                console.log(load);
+                $('#reportTable').bootstrapTable({
+                    data:load,
+                    locale:'zh-CN',
+                    datatype:'json',
+                    contentType:'application/json',
+                    cache: false,
+                    height: 525,//改变table的高度，!!!并不是实际大小
+                    striped: true,
+                    pagination: true,
+                    pageSize: 10,//每页默认数据量
+                    pageNumber: 1,//默认第一页
+                    pageList: [5, 10, 15],
+                    search: true,//搜索框
+                    showColumns: true,
+                    showRefresh: true,
+                    showExport: true,
+                    exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
+                    search: true,
+                    clickToSelect: true,
+                    columns: [{
+		                field: "id",//Json  KEY
+		                title: "员工号",
+		                align: "center",
+		                valign: "middle",
+		                sortable: "true"
+		            }, {
+		                field: "name",
+		                title: "员工名字",
+		                align: "center",
+		                valign: "middle",
+		                sortable: "true"
+		            }, {
+		                field: "room",
+		                title: "科室",
+		                align: "center",
+		                valign: "middle",
+		                sortable: "true"
+		            }, {
+		                field: "perform",
+		                title: "绩效",
+		                align: "center",
+		                valign: "middle",
+		                sortable: "true"
+		            }, {
+		                field: "attendence",
+		                title: "考勤",
+		                align: "center",
+		                valign: "middle",
+		                sortable: "true"
+		            }]
+                })
+            },300)
+        });
+    	
+
+    		//  
+ 
+        // 	
+
+
+			$(window).resize(function () {
+                $('#reportTable').bootstrapTable('resetView');
+            });
+    				
+            
+		// 添加用户
+		// 
+			$('#add').click(function(){
+					parent.window.a();
+
+			})
+
+
+
+		// 转移业务
+		
+			// 弹窗控制
+				$('.exchange').click(function(){
+						$('#light').css('display','block');
+						$('#fade').css('display','block');
+
+					})		
+		
+
+				$('#click_exist').click(function(){
+						$('#light').css('display','none');
+						$('#fade').css('display','none');
+
+					})
+
+
+
+			// 注册框点击事件
+			$('.exchange_body .old').focus(function(){
+			 var username = $(this).val();
+			 if(username=='键入要转移的工号'){
+			 $(this).val('');
+			 } 
+			}).focusout(function(){
+				if($(this).val()==''){
+			    $(this).val('键入要转移的工号');
+			}
+			})
+
+
+
+			$('.exchange_body .new').focus(function(){
+			 var username = $(this).val();
+			 if(username=='键入要转入的工号'){
+			 $(this).val('');
+			 } 
+			}).focusout(function(){
+				if($(this).val()==''){
+			    $(this).val('键入要转入的工号');
+			}
+			})
+
+
+		// 转移业务逻辑
+		 $('.submit_btn2').click(function(e){
+		 	var oldid=$('.old').val();
+		 	var newid=$('.new').val();
+		 	if (oldid&&newid) {
+		 		$.ajax({
+				type: 'post',
+	            url: '/emp/passup',
+	            // async:false
+                data:{"oldId":oldid,"newId":newid},
+                success: function (data) {
+	            	    alert(data);
+                        $('#light').css('display','none');
+                        $('#fade').css('display','none');
+
+                    // }
+	            }
+			});
+		 	}
+		 })
+
+
+
+		// $('#reportTable').bootstrapTable({
+            
+        //     locale:'zh-CN',
+        //     datatype:'json',
+        //     contentType:'application/json',
+        //     cache: false,
+        //     height: 525,//改变table的高度，!!!并不是实际大小
+        //     striped: true,
+        //     pagination: true,
+        //     pageSize: 10,//每页默认数据量
+        //     pageNumber: 1,//默认第一页
+        //     pageList: [5, 10, 15],
+        //     search: true,//搜索框
+        //     showColumns: true,
+        //     showRefresh: true,
+        //     showExport: true,
+        //     exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
+        //     search: true,
+        //     clickToSelect: true,
+        //     columns: [{
+        //         field: "id",//Json  KEY
+        //         title: "员工号",
+        //         align: "center",
+        //         valign: "middle",
+        //         sortable: "true"
+        //     }, {
+        //         field: "name",
+        //         title: "员工名字",
+        //         align: "center",
+        //         valign: "middle",
+        //         sortable: "true"
+        //     }, {
+        //         field: "room",
+        //         title: "科室",
+        //         align: "center",
+        //         valign: "middle",
+        //         sortable: "true"
+        //     }, {
+        //         field: "perform",
+        //         title: "绩效",
+        //         align: "center",
+        //         valign: "middle",
+        //         sortable: "true"
+        //     }, {
+        //         field: "attendence",
+        //         title: "考勤",
+        //         align: "center",
+        //         valign: "middle",
+        //         sortable: "true"
+        //     }, ],
+        //     data: [{                //Json data
+        //         "id": "20150801001",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801002",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801003",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801004",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801005",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801006",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801007",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801008",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "20150801009",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010010",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },{                //Json data
+        //         "id": "201508010011",
+        //         "name": "王大锤",
+        //         "room": "15575956200",
+        //         "perform": "50000",
+        //         "attendence": "100014"
+        //     },
+        //     ],
+            
+        // });
+
+    </script>
+</body>
+</html>

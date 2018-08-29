@@ -18,8 +18,13 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Transactional
     @Override
-    public int add(int id) {
-        return registerDao.add(id);
+    public String add(int id) {
+        int result = registerDao.add(id);
+        if (result == 0){
+            return "error!";
+        }else {
+            return ("New ID is : " + result);
+        }
     }
 
     @Override

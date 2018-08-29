@@ -83,14 +83,14 @@
 
     .message .files{
         position:absolute;
-        left:500px;
+        left:100px;
         top:-52px;
         height:26px;
         cursor:pointer;
         /*z-index:1003;*/
         filter: Alpha(opacity=0);
         /*-moz-opacity:0;*/
-        /*opacity:0;*/
+        opacity:0;
     } 
 
 /*    .input_excel{
