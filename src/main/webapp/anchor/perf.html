@@ -26,7 +26,7 @@
 <div class="row">
 
     <div class="title">
-        <h4 class="title_txt">信息管理</h4>
+        <h4 class="title_txt">绩效管理</h4>
         <img class="title_img" src="/img/title_img.png" alt="">
     </div>
 
@@ -34,17 +34,17 @@
 
         <table class="table table-bordered table-hover">
 
-            <tr><th class="info" colspan="4">个人信息</th></tr>
+            <tr><th class="info" colspan="6">绩效编辑</th></tr>
 
-            <tr><td class="active col-md-2" >科室编号</td><td id="id" colspan="3"></td></tr>
+            <tr><td class="active col-md-4" >科室编号</td><td id="id" colspan="5"></td></tr>
 
-            <tr><td class="active col-md-2">负债业务</td><td id="perf1" class="change col-md-4"></td><td class="active col-md-2">贷款业务</td><td id="perf2" class="change2"></td></tr>
+            <tr><td class="active col-md-2">负债业务</td><td id="perf1" class="change col-md-4"></td><td>%</td><td class="active col-md-2">贷款业务</td><td id="perf2" class="change2"></td><td>%</td></tr>
 
-            <tr><td class="active col-md-2">支付结算业务</td><td id="perf3" class="change col-md-4"></td><td class="active col-md-2">代理业务</td><td id="perf4"></td></tr>
+            <tr><td class="active col-md-2">支付结算业务</td><td id="perf3" class="change col-md-4"></td><td>%</td><td class="active col-md-2">代理业务</td><td class="change" id="perf4"></td><td>%</td></tr>
 
-            <tr><td class="active col-md-2" >考勤</td><td id="attendence" class="change col-md-4"></td><td class="active col-md-2" >目标</td><td id="score" class="change col-md-4"></td></tr>
+            <tr><td class="active col-md-2" >考勤</td><td id="attendence" class="change col-md-4"></td><td>%</td><td class="active col-md-2" >目标</td><td id="score" class="change col-md-4" colspan="2"></td></tr>
 
-            <tr><td class="active col-md-2" >结算日期</td><td id="check_date" class="change col-md-4"></td></tr>
+            <tr><td class="active col-md-4" >结算日期</td><td id="check_date" class="change col-md-4" colspan="5"></td></tr>
 
         </table>
 
@@ -58,30 +58,31 @@
 
     var userobj;
 
-    $(function(){
-        $('table .change').click(function(){
-            if(!$(this).is('.input')){
-                $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){
+    $(function() {
+        $('table .change').click(function () {
+            if (!$(this).is('.input')) {
+                $(this).addClass('input').html('<input type="text" value="' + $(this).text() + '" />').find('input').focus().blur(function () {
                     $(this).parent().removeClass('input').html($(this).val() || 0);
                 });
             }
-        }).hover(function(){
+        }).hover(function () {
             $(this).addClass('hover');
-        },function(){
+        }, function () {
             $(this).removeClass('hover');
         });
 
-        $('table .change2').click(function(){
-            if(!$(this).is('.input')){
-                $(this).addClass('input').html('<input type="text" value="'+ $(this).text() +'" />').find('input').focus().blur(function(){
+        $('table .change2').click(function () {
+            if (!$(this).is('.input')) {
+                $(this).addClass('input').html('<input type="text" value="' + $(this).text() + '" />').find('input').focus().blur(function () {
                     $(this).parent().removeClass('input').html($(this).val() || 0);
                 });
             }
-        }).hover(function(){
+        }).hover(function () {
             $(this).addClass('hover');
-        },function(){
+        }, function () {
             $(this).removeClass('hover');
         });
+    });
 
 
     $('#submit_btn').click(function(){
@@ -94,34 +95,67 @@
             "perf4":parseFloat($('#perf4').text())/100,
             "attendence":parseFloat($('#attendence').text())/100,
             "score":parseInt($('#score').text()),
-            "testdate":new Date(check_date[0],check_date[1],check_date[2])
+            "testdate":new Date(check_date[0],check_date[1]-1,check_date[2])
         };
-        $.ajax({
-            url:'/emp/infup',  //url地址替换
-            type:'post',
-            data:JSON.stringify(performance),
-            contentType:"application/json",
-            datatype:'json',
-            success:function(data){
-                alert(data);
-            }
-        });
+        var sum=0;
+        var perf1=parseInt($('#perf1').text());
+        if (!isNaN(perf1)) {sum=sum+perf1;}
+        var perf2=parseInt($('#perf2').text());
+        if (!isNaN(perf2)) {sum=sum+perf2;}
+        var perf3=parseInt($('#perf3').text());
+        if (!isNaN(perf3)) {sum=sum+perf3;}
+        var perf4=parseInt($('#perf4').text());
+        if (!isNaN(perf4)) {sum=sum+perf4;}
+        var atten=parseInt($('#attendence').text());
+        if (!isNaN(atten)) {sum=sum+atten;}
+
+        if (sum==100) {
+            $.ajax({
+                url:'/mng/perfup',  //url地址替换
+                type:'post',
+                data:JSON.stringify(performance),
+                contentType:"application/json",
+                datatype:'json',
+                success:function(data){
+                    alert(data);
+                }
+            });
+        } else{
+            alert("绩效占比和不为100%");
+        }
     });
 
 
     $(document).ready(function() {
-        parent.window.a();
+        parent.window.perf();
         setTimeout(function () {
             var userobj = window.parent.res;
-            $('.table #perf1').text(userobj.perf1);
-            $('.table #perf2').text(userobj.perf2);
-            $('.table #perf3').text(userobj.perf3);
-            $('.table #perf4').text(userobj.perf4);
-            $('.table #attendence').text(userobj.attendence);
+            $('.table #id').text(userobj.room);
+            $('.table #perf1').text(userobj.perf1*100);
+            $('.table #perf2').text(userobj.perf2*100);
+            $('.table #perf3').text(userobj.perf3*100);
+            $('.table #perf4').text(userobj.perf4*100);
+            $('.table #attendence').text(userobj.attendence*100);
+            $('.table #score').text(userobj.score);
+            $('.table #check_date').text(new Date(userobj.testdate).Format("yyyy-MM-dd"));
         },200);
-    })
+    });
 
-
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
 
 
 

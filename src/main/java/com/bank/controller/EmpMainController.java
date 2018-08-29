@@ -94,7 +94,6 @@ public class EmpMainController {
     @RequestMapping("/infload")
     @ResponseBody
     public Information Infload(@RequestParam int id){
-        System.out.println(InfTransUtil.inf_trans(inforUpdateService.inf_load(id),id));
         return InfTransUtil.inf_trans(inforUpdateService.inf_load(id),id);
     }
 

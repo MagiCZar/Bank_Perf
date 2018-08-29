@@ -61,7 +61,7 @@ To change this template use File | Settings | File Templates.
 
     <div class="content">
         <dl>
-            <dt style="border-top: none;"><img class="line" src="img/line.png" alt="">客户管理 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
+            <dt style="border-top: none;"><img class="line" src="img/line.png" alt="">员工管理 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
             <dd>
                 <a href="#anchor/emytable.html">员工信息 </a>
                 <!-- <a href="#view/communication.html">业务管理 </a> -->
@@ -170,7 +170,37 @@ To change this template use File | Settings | File Templates.
         var idvalue=$('.welcome p').text();
         var idint=parseInt(idvalue);
         $.ajax({
-            url:'/emp/infload',  //url地址替换
+            url:'/mng/infload',  //url地址替换
+            type:'post',
+            data:{'id':idint},
+            cache:false,
+            // async:false,
+            success:function (data) {
+                res = data;
+            }
+        });
+    }
+
+    function add(){
+        var idvalue=$('.welcome p').text();
+        var idint=parseInt(idvalue);
+        $.ajax({
+            url:'/mng/register',  //url地址替换
+            type:'post',
+            data:{'id':idint},
+            cache:false,
+            // async:false,
+            success:function (data) {
+                alert(data);
+            }
+        });
+    }
+
+    function perf(){
+        var idvalue=$('.welcome p').text();
+        var idint=parseInt(idvalue);
+        $.ajax({
+            url:'/mng/perfload',  //url地址替换
             type:'post',
             data:{'id':idint},
             cache:false,

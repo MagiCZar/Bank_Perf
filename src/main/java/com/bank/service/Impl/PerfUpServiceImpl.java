@@ -5,6 +5,7 @@ import com.bank.dao.PerfDao;
 import com.bank.service.PerfUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class PerfUpServiceImpl implements PerfUpService {
     }
 
     @Override
+    @Transactional
     public String perfUp(Performance performance) {
         return perfDao.perfUp(performance);
     }
@@ -23,6 +25,11 @@ public class PerfUpServiceImpl implements PerfUpService {
     @Override
     public List perfLoad(int id) {
         return perfDao.perfLoad(id);
+    }
+
+    @Override
+    public Performance perfload(int id) {
+        return perfDao.perfload(id/1000-20);
     }
 
     private final PerfDao perfDao;

@@ -8,4 +8,5 @@ public interface PerfDao {
     String updatePerf(int id);
     String perfUp(Performance performance);
     List perfLoad(int id);
+    Performance perfload(int id);
 }

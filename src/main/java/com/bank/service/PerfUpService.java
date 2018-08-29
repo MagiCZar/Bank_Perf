@@ -7,4 +7,5 @@ import java.util.List;
 public interface PerfUpService {
     String perfUp(Performance performance);
     List perfLoad(int id);
+    Performance perfload(int id);
 }

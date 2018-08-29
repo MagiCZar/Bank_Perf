@@ -23,7 +23,6 @@ public class RegisterDaoImpl implements RegisterDao {
 
     @Override
     public int add(int frontId) {
-
         if (frontId > 0 && frontId < 5) {
             int id = usefulID(frontId);
             if (id != 0) {

@@ -19,7 +19,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Transactional
     @Override
     public String add(int id) {
-        int result = registerDao.add(id);
+        int result = registerDao.add(id/1000-20);
         if (result == 0){
             return "error!";
         }else {

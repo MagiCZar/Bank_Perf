@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -77,12 +78,14 @@ public class PerfDaoImpl implements PerfDao {
     }
 
     @Override
+    @Transactional
     public String perfUp(Performance performance) {
         String message;
         try {
             this.getHibernateTemplate().update(performance);
             message = "success";
         }catch (Exception e){
+            e.printStackTrace();
             message = "error";
         }
         return message;
@@ -92,6 +95,11 @@ public class PerfDaoImpl implements PerfDao {
     public List perfLoad(int id) {
         DetachedCriteria criteria = CriteriaUtil.Emp(id);
         return this.getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    @Override
+    public Performance perfload(int id) {
+        return this.getHibernateTemplate().get(Performance.class,id);
     }
 
 

@@ -24,7 +24,7 @@ public class InfTransUtil {
                 return push(information,id,personEmp.getName(),personEmp.getSex(),personEmp.getBirthday(),"个人科");
             default:
                 Manager manager = (Manager)list.get(0);
-                return push(information,id,manager.getName(),manager.getSex(),manager.getBirthday(),"");
+                return push(information,id,manager.getName(),manager.getSex(),manager.getBirthday(),"领导");
         }
     }
 

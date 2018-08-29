@@ -126,7 +126,7 @@
 		                valign: "middle",
 		                sortable: "true"
 		            }, {
-		                field: "attendence",
+		                field: "attendance",
 		                title: "考勤",
 		                align: "center",
 		                valign: "middle",
@@ -149,10 +149,9 @@
             
 		// 添加用户
 		// 
-			$('#add').click(function(){
-					parent.window.a();
-
-			})
+			$('.add').click(function(){
+				parent.window.add();
+			});
 
 
 
@@ -201,214 +200,26 @@
 
 
 		// 转移业务逻辑
-		 $('.submit_btn2').click(function(e){
-		 	var oldid=$('.old').val();
-		 	var newid=$('.new').val();
-		 	if (oldid&&newid) {
+		 $('.submit_button2').click(function(){
+		 	if ($('.old').val()!=='' && $('.new').val()!=='') {
+                var oldid = parseInt($('.old').val());
+                var newid = parseInt($('.new').val());
+		 	    alert("花Q！");
 		 		$.ajax({
 				type: 'post',
-	            url: '/emp/passup',
+	            url: '/mng/cuschange',
 	            // async:false
                 data:{"oldId":oldid,"newId":newid},
                 success: function (data) {
 	            	    alert(data);
                         $('#light').css('display','none');
                         $('#fade').css('display','none');
-
                     // }
 	            }
 			});
 		 	}
 		 })
 
-
-
-		// $('#reportTable').bootstrapTable({
-            
-        //     locale:'zh-CN',
-        //     datatype:'json',
-        //     contentType:'application/json',
-        //     cache: false,
-        //     height: 525,//改变table的高度，!!!并不是实际大小
-        //     striped: true,
-        //     pagination: true,
-        //     pageSize: 10,//每页默认数据量
-        //     pageNumber: 1,//默认第一页
-        //     pageList: [5, 10, 15],
-        //     search: true,//搜索框
-        //     showColumns: true,
-        //     showRefresh: true,
-        //     showExport: true,
-        //     exportTypes: ['csv', 'txt', 'xml', 'excel', 'sql', 'json'],
-        //     search: true,
-        //     clickToSelect: true,
-        //     columns: [{
-        //         field: "id",//Json  KEY
-        //         title: "员工号",
-        //         align: "center",
-        //         valign: "middle",
-        //         sortable: "true"
-        //     }, {
-        //         field: "name",
-        //         title: "员工名字",
-        //         align: "center",
-        //         valign: "middle",
-        //         sortable: "true"
-        //     }, {
-        //         field: "room",
-        //         title: "科室",
-        //         align: "center",
-        //         valign: "middle",
-        //         sortable: "true"
-        //     }, {
-        //         field: "perform",
-        //         title: "绩效",
-        //         align: "center",
-        //         valign: "middle",
-        //         sortable: "true"
-        //     }, {
-        //         field: "attendence",
-        //         title: "考勤",
-        //         align: "center",
-        //         valign: "middle",
-        //         sortable: "true"
-        //     }, ],
-        //     data: [{                //Json data
-        //         "id": "20150801001",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801002",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801003",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801004",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801005",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801006",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801007",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801008",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "20150801009",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010010",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },{                //Json data
-        //         "id": "201508010011",
-        //         "name": "王大锤",
-        //         "room": "15575956200",
-        //         "perform": "50000",
-        //         "attendence": "100014"
-        //     },
-        //     ],
-            
-        // });
 
     </script>
 </body>

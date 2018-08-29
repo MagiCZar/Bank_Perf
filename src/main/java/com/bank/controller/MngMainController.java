@@ -1,11 +1,10 @@
 package com.bank.controller;
 
 import com.bank.bean.Emp;
+import com.bank.bean.Information;
 import com.bank.bean.Performance;
-import com.bank.service.CusChangeService;
-import com.bank.service.EmpLoadService;
-import com.bank.service.PerfUpService;
-import com.bank.service.RegisterService;
+import com.bank.service.*;
+import com.bank.util.InfTransUtil;
 import com.bank.util.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +22,12 @@ import java.util.List;
 @RequestMapping("/mng")
 public class MngMainController {
     @Autowired
-    public MngMainController(EmpLoadService empLoadService, RegisterService register, PerfUpService perfUpService, CusChangeService cusChangeService) {
+    public MngMainController(EmpLoadService empLoadService, RegisterService register, PerfUpService perfUpService, CusChangeService cusChangeService, InforUpdateService inforUpdateService) {
         this.empLoadService = empLoadService;
         this.register = register;
         this.perfUpService = perfUpService;
         this.cusChangeService = cusChangeService;
+        this.inforUpdateService = inforUpdateService;
     }
 
     @RequestMapping("/register")
@@ -42,6 +42,12 @@ public class MngMainController {
         return perfUpService.perfUp(performance);
     }
 
+    @RequestMapping("/perfload")
+    @ResponseBody
+    public Performance perfload(@RequestParam int id){
+        return perfUpService.perfload(id);
+    }
+
     @RequestMapping("/cuschange")
     @ResponseBody
     public String perfup(@RequestParam int oldId,@RequestParam int newId){
@@ -54,8 +60,15 @@ public class MngMainController {
         return ListUtil.listTran(id,empLoadService.empLoad(id));
     }
 
+    @RequestMapping("/infload")
+    @ResponseBody
+    public Information Infload(@RequestParam int id){
+        return InfTransUtil.inf_trans(inforUpdateService.inf_load(id),id);
+    }
+
     private final EmpLoadService empLoadService;
     private final RegisterService register;
     private final PerfUpService perfUpService;
     private final CusChangeService cusChangeService;
+    private final InforUpdateService inforUpdateService;
 }

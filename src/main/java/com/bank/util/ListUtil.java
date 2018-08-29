@@ -67,11 +67,11 @@ public class ListUtil {
 
     public static List<Emp> listTran(int id,List list){
         List<Emp> result = new ArrayList<>();
-        Emp emp = new Emp();
         switch (id/1000){
             case 21:
                 for (Object aList : list) {
                     AssetEmp assetEmp = (AssetEmp) aList;
+                    Emp emp = new Emp();
                     emp.setId(assetEmp.getId());
                     emp.setName(assetEmp.getName());
                     emp.setRoom("资产科");
@@ -83,6 +83,7 @@ public class ListUtil {
             case 22:
                 for (Object aList : list) {
                     LiaEmp liaEmp = (LiaEmp)aList;
+                    Emp emp = new Emp();
                     emp.setId(liaEmp.getId());
                     emp.setName(liaEmp.getName());
                     emp.setRoom("负债科");
@@ -94,6 +95,7 @@ public class ListUtil {
             case 23:
                 for (Object aList : list) {
                     MiddleEmp middleEmp = (MiddleEmp)aList;
+                    Emp emp = new Emp();
                     emp.setId(middleEmp.getId());
                     emp.setName(middleEmp.getName());
                     emp.setRoom("中间科");
@@ -105,6 +107,7 @@ public class ListUtil {
             case 24:
                 for (Object aList : list) {
                     PersonEmp personEmp = (PersonEmp)aList;
+                    Emp emp = new Emp();
                     emp.setId(personEmp.getId());
                     emp.setName(personEmp.getName());
                     emp.setRoom("个人科");
