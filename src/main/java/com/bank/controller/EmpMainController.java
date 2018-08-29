@@ -34,10 +34,9 @@ public class EmpMainController {
     /**
      * TODO: 2018/8/27 导入客户
      */
-    @RequestMapping(value = "/cus", method = {RequestMethod.POST})
+    @RequestMapping(value = "/cus")
     @ResponseBody
     public List<Customer> CusLoad(@RequestParam int id){
-        System.out.println("花Q！");
         return ListUtil.listTrans(id,excelService.load(id));
     }
 

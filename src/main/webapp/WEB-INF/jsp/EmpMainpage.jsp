@@ -189,9 +189,9 @@ To change this template use File | Settings | File Templates.
             url: '/emp/cus',//请求地址
             cache: false,
             data: {'id':idint},
-            processData: false, //特别注意这个属性不能省
-            contentType: false, //特别注意这个属性不能省
-            dataType: 'json',
+            // processData: false, //特别注意这个属性不能省
+            // contentType: false, //特别注意这个属性不能省
+            // dataType: 'json',
             // async:false,
             success:function (data) {
                 obj = eval(data);

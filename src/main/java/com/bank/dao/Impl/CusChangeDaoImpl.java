@@ -34,9 +34,11 @@ public class CusChangeDaoImpl implements CusChangeDao {
                     for (Object alist : list) {
                         AssetCus assetCus = (AssetCus) alist;
                         this.getHibernateTemplate().delete(assetCus);
-                        assetCus.setEmpId(newID);
-                        assetCus.setCusId(usefulID(newID));
-                        this.getHibernateTemplate().save(assetCus);
+                        if (assetCus.getState()==0){
+                            assetCus.setEmpId(newID);
+                            assetCus.setCusId(usefulID(newID));
+                            this.getHibernateTemplate().save(assetCus);
+                        }
                     }
                     break;
                 case 12:
@@ -46,9 +48,11 @@ public class CusChangeDaoImpl implements CusChangeDao {
                     for (Object alist : list) {
                         LiaCus liaCus = (LiaCus) alist;
                         this.getHibernateTemplate().delete(liaCus);
-                        liaCus.setEmpId(newID);
-                        liaCus.setCusId(usefulID(newID));
-                        this.getHibernateTemplate().save(liaCus);
+                        if (liaCus.getState()==0){
+                            liaCus.setEmpId(newID);
+                            liaCus.setCusId(usefulID(newID));
+                            this.getHibernateTemplate().save(liaCus);
+                        }
                     }
                     break;
                 case 13:
@@ -58,9 +62,11 @@ public class CusChangeDaoImpl implements CusChangeDao {
                     for (Object alist : list) {
                         MiddleCus midCus = (MiddleCus) alist;
                         this.getHibernateTemplate().delete(midCus);
-                        midCus.setEmpId(newID);
-                        midCus.setCusId(usefulID(newID));
-                        this.getHibernateTemplate().save(midCus);
+                        if (midCus.getState()==0){
+                            midCus.setEmpId(newID);
+                            midCus.setCusId(usefulID(newID));
+                            this.getHibernateTemplate().save(midCus);
+                        }
                     }
                     break;
                 case 14:
@@ -70,9 +76,11 @@ public class CusChangeDaoImpl implements CusChangeDao {
                     for (Object alist : list) {
                         PersonCus personCus = (PersonCus) alist;
                         this.getHibernateTemplate().delete(personCus);
-                        personCus.setEmpId(newID);
-                        personCus.setCusId(usefulID(newID));
-                        this.getHibernateTemplate().save(personCus);
+                        if (personCus.getState()==0){
+                            personCus.setEmpId(newID);
+                            personCus.setCusId(usefulID(newID));
+                            this.getHibernateTemplate().save(personCus);
+                        }
                     }
                     break;
             }

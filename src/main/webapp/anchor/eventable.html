@@ -46,12 +46,12 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            console.log("花Q！");
             parent.window.cus();
-            setTimeout(function () {
-                console.log(window.parent.res);
+            setTimeout(function load() {
+                var load = window.parent.obj;
+                console.log(load);
                 $('#reportTable').bootstrapTable({
-                    data:window.parent.res,
+                    data:load,
                     locale:'zh-CN',
                     datatype:'json',
                     contentType:'application/json',
@@ -107,10 +107,12 @@
                         sortable: "true"
                     }]
                 })
-            },300);
-
+            },300)
         });
-    		$('#liulan').click(function(){
+
+
+
+        $('#liulan').click(function(){
            			alert("成功");
            	        $('#f').trigger('click');
            });

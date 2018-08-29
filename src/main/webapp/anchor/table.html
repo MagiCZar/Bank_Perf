@@ -266,33 +266,22 @@ $('.register-box input').eq(2).blur(function(){
 
 
 
-	$('#submit_btn').click(function(){
-		var id=$('#id').text();
-		var name=$('#name').text();
-		var birthday=$('#birthday').text();
-		var sex=$('#sex').text();
+    $('#submit_btn').click(function(){
+        var id=parseInt($('#id').text());
+        var name=$('#name').text();
+        var birthday=$('#birthday').text();
+        var sex=$('#sex').text();
+        $.ajax({
+			url:'/emp/infup',  //url地址替换
+			type:'post',
+			data:{"id":id,"name":name,"birth":birthday,"sex":sex},
+			// contentType:"application/json",
+			success:function(data){
+            	alert(data);
+        	}
+    	});
+    });
 
-		var user1={};
-		user1.id=id;
-		user1.name=name;
-		user1.birthday=birthday;
-		user1.sex=sex;
-		console.log(user1);
-
-		var user2=JSON.stringify(user1);
-		console.log(user2);
-
-
-		$.ajax({
-			url:"/addUser",  //url地址替换
-            type:"POST",
-            data:user2,
-            contentType:"application/json",
-            success:function(data){
-                console.log(data);
-            }
-		});
-	})
 
 
 	$('#click_pop').click(function(){

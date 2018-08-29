@@ -51,13 +51,7 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
                 assetEmp.setBirthday(birth);
                 assetEmp.setSex(sex);
                 assetEmp.setName(name);
-                try {
-                    this.getHibernateTemplate().update(assetEmp);
-                    message = "个人信息更新成功！";
-                }catch (Exception e1){
-                    e1.printStackTrace();
-                    message = "个人信息更新失败！";
-                }
+                hiberup(assetEmp);
                 break;
             case 12:
                 LiaEmp liaEmp = new LiaEmp();
@@ -65,12 +59,7 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
                 liaEmp.setBirthday(birth);
                 liaEmp.setName(name);
                 liaEmp.setSex(sex);
-                try {
-                    this.getHibernateTemplate().update(liaEmp);
-                    message = "个人信息更新成功！";
-                }catch (Exception e1){
-                    message = "个人信息更新失败！";
-                }
+                hiberup(liaEmp);
                 break;
             case 13:
                 MiddleEmp middleEmp = new MiddleEmp();
@@ -78,12 +67,7 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
                 middleEmp.setBirthday(birth);
                 middleEmp.setName(name);
                 middleEmp.setSex(sex);
-                try {
-                    this.getHibernateTemplate().update(middleEmp);
-                    message = "个人信息更新成功！";
-                }catch (Exception e1){
-                    message = "个人信息更新失败！";
-                }
+                hiberup(middleEmp);
                 break;
             case 14:
                 PersonEmp personEmp = new PersonEmp();
@@ -91,12 +75,7 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
                 personEmp.setBirthday(birth);
                 personEmp.setName(name);
                 personEmp.setSex(sex);
-                try {
-                    this.getHibernateTemplate().update(personEmp);
-                    message = "个人信息更新成功！";
-                }catch (Exception e1){
-                    message = "个人信息更新失败！";
-                }
+                hiberup(personEmp);
                 break;
             default:
                 Manager manager = new Manager();
@@ -104,12 +83,7 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
                 manager.setBirthday(birth);
                 manager.setName(name);
                 manager.setSex(sex);
-                try {
-                    this.getHibernateTemplate().update(manager);
-                    message = "个人信息更新成功！";
-                }catch (Exception e1){
-                    message = "个人信息更新失败！";
-                }
+                hiberup(manager);
                 break;
         }
         return message;
@@ -128,6 +102,15 @@ public class InfUpdateDaoImpl implements InfUpdateDao {
         return this.getHibernateTemplate().findByCriteria(criteria);
     }
 
+    private void hiberup(Object o){
+        try {
+            this.getHibernateTemplate().update(o);
+            message = "success！";
+        }catch (Exception e1){
+            e1.printStackTrace();
+            message = "failed！";
+        }
+    }
 
     @Getter
     private final HibernateTemplate hibernateTemplate;
