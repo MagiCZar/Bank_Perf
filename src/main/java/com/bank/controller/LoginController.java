@@ -48,6 +48,12 @@ public class LoginController {
         }
     }
 
+    @RequestMapping("exit")
+    @ResponseBody
+    public ModelAndView exit(ModelAndView modelAndView){
+        modelAndView.setViewName("login.jsp");
+        return modelAndView;
+    }
 
     private final LoginService loginService;
 

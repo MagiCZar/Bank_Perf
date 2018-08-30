@@ -97,7 +97,6 @@ public class PerfUtil {
                         + assliaCal(num[2] * 10) * performance.getPerf3()
                         + assliaCal(num[3] * 10) * performance.getPerf4()
                         + attendance * performance.getAttendence());
-
         return score;
     }
 }

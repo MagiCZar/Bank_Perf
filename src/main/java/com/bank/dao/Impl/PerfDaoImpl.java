@@ -23,6 +23,7 @@ public class PerfDaoImpl implements PerfDao {
     }
 
     @Override
+    @Transactional
     public String updatePerf(int id) {
         String message;
         byte state = 1;
@@ -41,6 +42,7 @@ public class PerfDaoImpl implements PerfDao {
                     perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(assetEmp).getAttendance(),performance);
                     assetEmp.setPerform(perf);
                     assetEmp.setLoan(num[0]);
+                    this.getHibernateTemplate().update(assetEmp);
                     break;
                 case 12:
                     LiaEmp liaEmp = this.getHibernateTemplate().get(LiaEmp.class,id);
@@ -48,6 +50,7 @@ public class PerfDaoImpl implements PerfDao {
                     perf = PerfUtil.perfCal(id,num, Objects.requireNonNull(liaEmp).getAttendance(),performance);
                     liaEmp.setPerform(perf);
                     liaEmp.setMaleDep(num[0]);
+                    this.getHibernateTemplate().update(liaEmp);
                     break;
                 case 13:
                     MiddleEmp middleEmp = this.getHibernateTemplate().get(MiddleEmp.class,id);
@@ -58,6 +61,7 @@ public class PerfDaoImpl implements PerfDao {
                     middleEmp.setInvest(num[1]);
                     middleEmp.setGuarantee(num[2]);
                     middleEmp.setCash(num[3]);
+                    this.getHibernateTemplate().update(middleEmp);
                     break;
                 case 14:
                     PersonEmp perEmp = this.getHibernateTemplate().get(PersonEmp.class,id);
@@ -68,6 +72,7 @@ public class PerfDaoImpl implements PerfDao {
                     perEmp.setPerloan(num[1]);
                     perEmp.setPerpay(num[2]);
                     perEmp.setAgentserv(num[3]);
+                    this.getHibernateTemplate().update(perEmp);
                     break;
             }
             message =  "success";
@@ -91,11 +96,6 @@ public class PerfDaoImpl implements PerfDao {
         return message;
     }
 
-    @Override
-    public List perfLoad(int id) {
-        DetachedCriteria criteria = CriteriaUtil.Emp(id);
-        return this.getHibernateTemplate().findByCriteria(criteria);
-    }
 
     @Override
     public Performance perfload(int id) {

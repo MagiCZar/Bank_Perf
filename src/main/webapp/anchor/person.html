@@ -36,13 +36,45 @@
 
             <tr><th class="info" colspan="10">绩效编辑</th></tr>
 
-            <tr><td class="active col-md-2">考核项目</td><td class="change col-md-2">考核指标</td><td class="col-md-1">权重</td><td class="col-md-1">KPI目标值</td><td class="col-md-4" colspan="2">计分方式</td><td class="col-md-1">业务额</td><td class="col-md-2">备注</td></tr>
+            <tr><td class="active col-md-2">考核项目</td>
+                <td class="change col-md-2">考核指标</td>
+                <td class="col-md-1">权重</td>
+                <td class="col-md-1">KPI目标值</td>
+                <td class="col-md-4" colspan="2">计分方式</td>
+                <td class="col-md-1">业务额</td>
+                <td class="col-md-2">备注</td>
+            </tr>
 
-            <tr><td class="active col-md-2" rowspan="3">定量考核</td><td class="change col-md-2" rowspan="3">客户经理管户净增额</td><td id="perf1" class="col-md-1" rowspan="3"></td><td class="col-md-1" rowspan="3">100（5000万元）</td><td class="col-md-2">0——60分</td><td class="col-md-2">0——3000万元不合格</td><td id="score1" class="col-md-1" rowspan="3"></td><td class="col-md-2" rowspan="3">50万元/分</td></tr>
+            <tr><td class="active col-md-2" rowspan="4">定量考核</td>
+                <td class="change col-md-2">个人负债业务</td>
+                <td id="perf1" class="col-md-1"></td>
+                <td class="col-md-1" rowspan="4">100（500万元）</td>
+                <td class="col-md-2">0——60分</td><td class="col-md-2">0——300万元不合格</td>
+                <td id="score1" class="col-md-1"></td>
+                <td class="col-md-2" rowspan="4">5万元/分</td>
+            </tr>
 
-            <tr><td class="col-md-2">60——90分</td><td class="col-md-2">3000——4500万元合格</td></tr>
+            <tr>
+                <td class="change col-md-2">个人贷款业务</td>
+                <td id="perf2" class="col-md-1"></td>
+                <td class="col-md-2">60——90分</td>
+                <td class="col-md-2">300——450万元合格</td>
+                <td id="score2" class="col-md-1"></td>
+            </tr>
 
-            <tr><td class="col-md-2">90——100分</td><td class="col-md-2">4500万元——5000万元优秀</td></tr>
+            <tr>
+                <td class="change col-md-2">个人支付结算业务</td>
+                <td id="perf3" class="col-md-1"></td>
+                <td class="col-md-2" rowspan="2">90——100分</td>
+                <td class="col-md-2" rowspan="2">450万元——500万元优秀</td>
+                <td id="score3" class="col-md-1"></td>
+            </tr>
+
+            <tr>
+                <td class="change col-md-2">代理业务</td>
+                <td id="perf4" class="col-md-1"></td>
+                <td id="score4" class="col-md-1"></td>
+            </tr>
 
             <tr><td class="active col-md-2" rowspan="3">定性考核</td><td class="change col-md-2" rowspan="3">考勤</td><td id="attendance" class="col-md-1" rowspan="3"></td><td class="col-md-1" rowspan="3">100（100%）</td><td class="col-md-2">0——60分</td><td class="col-md-2">不合格</td><td id="score5" class="col-md-1" rowspan="3"></td><td class="col-md-2" rowspan="3">签到天数/考核天数*100%</td></tr>
 
@@ -73,8 +105,14 @@
         setTimeout(function () {
             var userobj = window.parent.res;
             $('.table #perf1').text(userobj.perf1);
+            $('.table #perf2').text(userobj.perf2);
+            $('.table #perf3').text(userobj.perf3);
+            $('.table #perf4').text(userobj.perf4);
             $('.table #attendance').text(userobj.attendance);
             $('.table #score1').text(userobj.score1);
+            $('.table #score2').text(userobj.score2);
+            $('.table #score3').text(userobj.score3);
+            $('.table #score4').text(userobj.score4);
             $('.table #score5').text(userobj.score5);
             $('.table #aim').text(userobj.aim);
             $('.table #score').text(userobj.score);

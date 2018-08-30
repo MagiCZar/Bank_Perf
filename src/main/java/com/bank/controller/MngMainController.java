@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -65,6 +66,7 @@ public class MngMainController {
     public Information Infload(@RequestParam int id){
         return InfTransUtil.inf_trans(inforUpdateService.inf_load(id),id);
     }
+
 
     private final EmpLoadService empLoadService;
     private final RegisterService register;

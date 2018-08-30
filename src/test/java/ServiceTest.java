@@ -40,6 +40,7 @@ public class ServiceTest {
 //        System.out.println(ListUtil.listTran(24001,empLoadService.empLoad(24001)));
 //        System.out.println(perfUpService.perfload(24001).getRoom());
 //        System.out.println(registerService.add(24001));
-        System.out.println(loginService.perf(21001));
+//        System.out.println(loginService.perf(21001));
+        System.out.println(perfUpService.EmpPerfLoad(13001));
     }
 }

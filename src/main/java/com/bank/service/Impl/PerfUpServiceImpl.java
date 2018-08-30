@@ -24,17 +24,13 @@ public class PerfUpServiceImpl implements PerfUpService {
     }
 
     @Override
-    public List perfLoad(int id) {
-        return perfDao.perfLoad(id);
-    }
-
-    @Override
     public Performance perfload(int id) {
             return perfDao.perfload(id / 1000 - 20);
     }
 
     @Override
     public Perf EmpPerfLoad(int id) {
+        perfDao.updatePerf(id);
         return perfDao.empPerfLoad(id);
     }
 

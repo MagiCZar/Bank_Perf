@@ -83,7 +83,7 @@ To change this template use File | Settings | File Templates.
                 <!-- <a href="#">错误申诉 </a> -->
             </dd>
         </dl>
-        <div class="submit_area"><a href="" class="submit_button" id="submit_btn">退出系统</a></div>
+        <form action="exit" class="submit_area"><button type="submit" class="submit_button" id="submit_btn">退出系统</button></form>
     </div>
 </div>
 <!--内容部分-->

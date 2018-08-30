@@ -8,7 +8,6 @@ import java.util.List;
 public interface PerfDao {
     String updatePerf(int id);
     String perfUp(Performance performance);
-    List perfLoad(int id);
     Performance perfload(int id);
     Perf empPerfLoad(int id);
 }

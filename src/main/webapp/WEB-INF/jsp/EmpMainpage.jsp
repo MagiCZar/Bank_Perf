@@ -84,7 +84,7 @@ To change this template use File | Settings | File Templates.
                 <!-- <a href="#">错误申诉 </a> -->
             </dd>
         </dl>
-        <div class="submit_area"><a href="javascript:history.back(-100)" class="submit_button" id="submit_btn">退出系统</a></div>
+        <form action="exit" class="submit_area"><button type="submit" class="submit_button" id="submit_btn">退出系统</button></form>
     </div>
 </div>
 <!--内容部分-->
@@ -114,13 +114,13 @@ To change this template use File | Settings | File Templates.
                 $('.setdif').attr("href","#anchor/asset.html");
                 break;
             case 12:
-                $('.setdif').attr("href","#anchor/Lia.jsp");
+                $('.setdif').attr("href","#anchor/lia.html");
                 break;
             case 13:
-                $('.setdif').attr("href","#anchor/middle.jsp");
+                $('.setdif').attr("href","#anchor/middle.html");
                 break;
             case 14:
-                $('.setdif').attr("href","#anchor/person.jsp");
+                $('.setdif').attr("href","#anchor/person.html");
                 break;
         }
     });

@@ -60,19 +60,19 @@ public class LoginDaoImpl implements LoginDao {
             case 11:
                 AssetEmp assetEmp = this.getHibernateTemplate().get(AssetEmp.class,id);
                 score = this.getHibernateTemplate().get(Performance.class,1).getScore();
-                return (assetEmp.getPerform()>score);
+                return (assetEmp.getPerform()>=score);
             case 12:
                 LiaEmp liaEmp = this.getHibernateTemplate().get(LiaEmp.class,id);
                 score = this.getHibernateTemplate().get(Performance.class,2).getScore();
-                return (liaEmp.getPerform()>score);
+                return (liaEmp.getPerform()>=score);
             case 13:
                 MiddleEmp middleEmp = this.getHibernateTemplate().get(MiddleEmp.class,id);
                 score = this.getHibernateTemplate().get(Performance.class,3).getScore();
-                return (middleEmp.getPerform()>score);
+                return (middleEmp.getPerform()>=score);
             case 14:
                 PersonEmp personEmp = this.getHibernateTemplate().get(PersonEmp.class,id);
                 score = this.getHibernateTemplate().get(Performance.class,4).getScore();
-                return personEmp.getPerform()>score;
+                return personEmp.getPerform()>=score;
         }
         return true;
     }
