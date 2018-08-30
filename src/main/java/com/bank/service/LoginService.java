@@ -10,5 +10,5 @@ import java.util.List;
 public interface LoginService {
     int login(Login user);
     void sign(int id);
-    List cus(int id);
+    String perf(int id);
 }

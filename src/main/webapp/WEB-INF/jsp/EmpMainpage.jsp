@@ -70,8 +70,8 @@ To change this template use File | Settings | File Templates.
         <dl>
             <dt ><img class="line" src="img/line.png" alt="">绩效查看 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
             <dd>
-                <a href="#anchor/show2.html">考勤记录 </a>
-                <a href="#anchor/service2.html">数据对比 </a>
+                <a class="setdif" href="">绩效查看 </a>
+                <a href="#anchor/demo.html">考勤查看 </a>
                 <!-- <a href="#view/loginCode.html">周报生成 </a> -->
 
             </dd>
@@ -84,7 +84,7 @@ To change this template use File | Settings | File Templates.
                 <!-- <a href="#">错误申诉 </a> -->
             </dd>
         </dl>
-        <div class="submit_area"><a href="" class="submit_button" id="submit_btn">退出系统</a></div>
+        <div class="submit_area"><a href="javascript:history.back(-100)" class="submit_button" id="submit_btn">退出系统</a></div>
     </div>
 </div>
 <!--内容部分-->
@@ -102,6 +102,28 @@ To change this template use File | Settings | File Templates.
 
     var res;
     var obj = [];
+
+    $(function () {
+        var perf = ${perf};
+        if (perf==0){
+            alert("您的绩效尚未合格！");
+        }
+        var id = parseInt(parseInt(${id})/1000);
+        switch (id) {
+            case 11:
+                $('.setdif').attr("href","#anchor/asset.html");
+                break;
+            case 12:
+                $('.setdif').attr("href","#anchor/Lia.jsp");
+                break;
+            case 13:
+                $('.setdif').attr("href","#anchor/middle.jsp");
+                break;
+            case 14:
+                $('.setdif').attr("href","#anchor/person.jsp");
+                break;
+        }
+    });
 
     //首次加载至url
     var u = window.location.href.split('#')[1]; //以“#”拆分当前url，取第二部分
@@ -171,6 +193,21 @@ To change this template use File | Settings | File Templates.
         var idint=parseInt(idvalue);
         $.ajax({
             url:'/emp/infload',  //url地址替换
+            type:'post',
+            data:{'id':idint},
+            cache:false,
+            // async:false,
+            success:function (data) {
+                res = data;
+            }
+        });
+    }
+
+    function perf(){
+        var idvalue=$('.welcome p').text();
+        var idint=parseInt(idvalue);
+        $.ajax({
+            url:'/emp/perfload',  //url地址替换
             type:'post',
             data:{'id':idint},
             cache:false,

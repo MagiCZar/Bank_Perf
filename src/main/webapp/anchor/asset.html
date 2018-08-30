@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="css/tableStyle.css">
+    <!-- 引入bootstrap样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入bootstrap-table样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+
+    <!-- jquery -->
+    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- bootstrap-table.min.js -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <!-- 引入中文语言包 -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+</head>
+<body>
+<div class="row">
+
+    <div class="title">
+        <h4 class="title_txt">绩效查看</h4>
+        <img class="title_img" src="/img/title_img.png" alt="">
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered">
+
+            <tr><th class="info" colspan="10">绩效编辑</th></tr>
+
+            <tr><td class="active col-md-2">考核项目</td><td class="change col-md-2">考核指标</td><td class="col-md-1">权重</td><td class="col-md-1">KPI目标值</td><td class="col-md-4" colspan="2">计分方式</td><td class="col-md-1">成果</td><td class="col-md-2">备注</td></tr>
+
+            <tr><td class="active col-md-2" rowspan="3">定量考核</td><td class="change col-md-2" rowspan="3">客户经理管户净增额</td><td id="perf1" class="col-md-1" rowspan="3"></td><td class="col-md-1" rowspan="3">100（5000万元）</td><td class="col-md-2">0——60分</td><td class="col-md-2">0——3000万元不合格</td><td id="score1" class="col-md-1" rowspan="3"></td><td class="col-md-2" rowspan="3">50万元/分</td></tr>
+
+            <tr><td class="col-md-2">60——90分</td><td class="col-md-2">3000——4500万元合格</td></tr>
+
+            <tr><td class="col-md-2">90——100分</td><td class="col-md-2">4500万元——5000万元优秀</td></tr>
+
+            <tr><td class="active col-md-2" rowspan="3">定性考核</td><td class="change col-md-2" rowspan="3">考勤</td><td id="attendance" class="col-md-1" rowspan="3"></td><td class="col-md-1" rowspan="3">100（100%）</td><td class="col-md-2">0——60分</td><td class="col-md-2">不合格</td><td id="score5" class="col-md-1" rowspan="3"></td><td class="col-md-2" rowspan="3">签到天数/考核天数*100%</td></tr>
+
+            <tr><td class="col-md-2">60——90分</td><td class="col-md-2">合格</td></tr>
+
+            <tr><td class="col-md-2">90——100分</td><td class="col-md-2">优秀</td></tr>
+
+            <tr><th colspan="2">目标分</th><th id="aim" colspan="2"></th><th colspan="2">总分</th><th id="score" colspan="2" ></th></tr>
+
+
+        </table>
+
+    </div>
+
+    <!-- <div class="submit_area"><button class="submit_button" type="submit" id="submit_btn">保存更改</button></div> -->
+
+</div>
+
+<script type="text/javascript">
+
+
+
+
+//  后台获取数据
+
+    $(document).ready(function() {
+        parent.window.perf();
+        setTimeout(function () {
+            var userobj = window.parent.res;
+            $('.table #perf1').text(userobj.perf1);
+            $('.table #attendance').text(userobj.attendance);
+            $('.table #score1').text(userobj.score1);
+            $('.table #score5').text(userobj.score5);
+            $('.table #aim').text(userobj.aim);
+            $('.table #score').text(userobj.score);
+        },200);
+    });
+
+
+
+</script>
+
+</body>
+</html>

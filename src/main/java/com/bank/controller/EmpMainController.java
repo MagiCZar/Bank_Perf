@@ -2,6 +2,7 @@ package com.bank.controller;
 
 import com.bank.bean.Customer;
 import com.bank.bean.Information;
+import com.bank.bean.Perf;
 import com.bank.service.ExcelService;
 import com.bank.service.InforUpdateService;
 import com.bank.service.PerfUpService;
@@ -84,8 +85,8 @@ public class EmpMainController {
      */
     @RequestMapping("/perfload")
     @ResponseBody
-    public List<Integer> PerfLoad(@RequestParam int id){
-        return ListUtil.perf(perfUpService.perfLoad(id),id);
+    public Perf PerfLoad(@RequestParam int id){
+        return perfUpService.EmpPerfLoad(id);
     }
 
     /**

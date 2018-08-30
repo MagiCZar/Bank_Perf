@@ -115,7 +115,7 @@ table {
         color: #333333;
         padding-left: 55px; }
         .side-bar dl dd a.active, .side-bar dl dd a:hover {
-          background: #69f url("../img/jt-right.png") no-repeat right center;
+          background: #69f url("/img/jt-right.png") no-repeat right center;
           background-position: 150px;
           color: #ffffff; }
 
@@ -456,11 +456,11 @@ table {
 
 
 #main {
-  width: 82%;
-  height: 92%;
+  width: 100%;
+  height: 100%;
   margin-top: -10%;
   padding-top: 10%;
-  padding-left: 18%; }
+  padding-left: 200px; }
   #main iframe {
     display: block;
     border: none;

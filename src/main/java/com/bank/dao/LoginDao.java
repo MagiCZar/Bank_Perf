@@ -10,5 +10,6 @@ import java.util.List;
 public interface LoginDao {
     int check(Login user);
     void sign(int id);
-    List cus(int id);
+    boolean perf(int id);
+    List perflist(int id);
 }

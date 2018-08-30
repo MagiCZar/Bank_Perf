@@ -102,6 +102,51 @@ public class PerfDaoImpl implements PerfDao {
         return this.getHibernateTemplate().get(Performance.class,id);
     }
 
+    @Override
+    public Perf empPerfLoad(int id) {
+        Perf perf = new Perf();
+        Performance performance = this.getHibernateTemplate().get(Performance.class,id/1000-10);
+        perf.setPerf1(performance.getPerf1());
+        perf.setPerf2(performance.getPerf2());
+        perf.setPerf3(performance.getPerf3());
+        perf.setPerf4(performance.getPerf4());
+        perf.setAttendance(performance.getAttendence());
+        perf.setAim(performance.getScore());
+        switch (id/1000){
+            case 11:
+                AssetEmp assetEmp = this.getHibernateTemplate().get(AssetEmp.class,id);
+                perf.setScore1(assetEmp.getLoan());
+                perf.setScore5(assetEmp.getAttendance());
+                perf.setScore(assetEmp.getPerform());
+                break;
+            case 12:
+                LiaEmp liaEmp = this.getHibernateTemplate().get(LiaEmp.class,id);
+                perf.setScore1(liaEmp.getMaleDep());
+                perf.setScore5(liaEmp.getAttendance());
+                perf.setScore(liaEmp.getPerform());
+                break;
+            case 13:
+                MiddleEmp middleEmp = this.getHibernateTemplate().get(MiddleEmp.class,id);
+                perf.setScore1(middleEmp.getFinancing());
+                perf.setScore2(middleEmp.getInvest());
+                perf.setScore3(middleEmp.getGuarantee());
+                perf.setScore4(middleEmp.getCash());
+                perf.setScore5(middleEmp.getAttendance());
+                perf.setScore(middleEmp.getPerform());
+                break;
+            case 14:
+                PersonEmp personEmp = this.getHibernateTemplate().get(PersonEmp.class,id);
+                perf.setScore1(personEmp.getPerdebt());
+                perf.setScore2(personEmp.getPerloan());
+                perf.setScore3(personEmp.getPerpay());
+                perf.setScore4(personEmp.getAgentserv());
+                perf.setScore5(personEmp.getAttendance());
+                perf.setScore(personEmp.getPerform());
+                break;
+        }
+        return perf;
+    }
+
 
     @Getter
     private final HibernateTemplate hibernateTemplate;

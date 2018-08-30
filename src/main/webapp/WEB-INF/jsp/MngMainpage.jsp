@@ -45,7 +45,6 @@ To change this template use File | Settings | File Templates.
 
 <body>
 
-
 <!--侧栏-->
 <div class="side-bar">
     <div class="logobox">
@@ -70,8 +69,8 @@ To change this template use File | Settings | File Templates.
         <dl>
             <dt ><img class="line" src="img/line.png" alt="">绩效查看 <img class="b" src="img/jt-right-co.png" alt=""><img class="r" src="img/jt-bottom.png" alt=""></dt>
             <dd>
-                <a href="#anchor/show2.html">考勤记录 </a>
-                <a href="#anchor/perf.html">绩效设置 </a>
+                <a href="#anchor/demo.html">考勤记录 </a>
+                <a class="setdif" href="">绩效设置 </a>
                 <!-- <a href="#view/loginCode.html">周报生成 </a> -->
 
             </dd>
@@ -102,6 +101,30 @@ To change this template use File | Settings | File Templates.
 
     var res;
     var obj = [];
+    $(function () {
+        var perf = '${perf}';
+        if(perf !== '0'){
+            perf = "目前绩效尚未达标的员工为：" + perf;
+            console.log(perf);
+            alert(perf);
+        }
+        var id = parseInt(parseInt(${id})/1000);
+        switch (id) {
+            case 21:
+                $('.setdif').attr("href","#anchor/perf1.html");
+                break;
+            case 22:
+                $('.setdif').attr("href","#anchor/perf2.html");
+                break;
+            case 23:
+                $('.setdif').attr("href","#anchor/perf3.html");
+                break;
+            case 24:
+                $('.setdif').attr("href","#anchor/perf4.html");
+                break;
+        }
+    });
+
 
     //首次加载至url
     var u = window.location.href.split('#')[1]; //以“#”拆分当前url，取第二部分

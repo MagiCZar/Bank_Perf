@@ -1,8 +1,11 @@
 package com.bank.service.Impl;
 
+import com.bank.bean.Customer;
+import com.bank.bean.Emp;
 import com.bank.bean.Login;
 import com.bank.dao.LoginDao;
 import com.bank.service.LoginService;
+import com.bank.util.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +37,26 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @Transactional
-    public List cus(int id) {
-        return userDao.cus(id);
+    public String perf(int id) {
+        if (id<20000){
+            if (userDao.perf(id)){
+                return "1";
+            }else {
+                return "0";
+            }
+        }else {
+            List<Emp> list = ListUtil.listTran(id,userDao.perflist(id));
+            if (list.size()==0){
+                return "0";
+            }else {
+                String mes = "";
+                for (Emp emp : list) {
+                    mes += emp.getId();
+                    mes += "、";
+                }
+                return mes.substring(0,mes.length()-1);
+            }
+        }
     }
 
     private final LoginDao userDao;

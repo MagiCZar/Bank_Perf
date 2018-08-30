@@ -54,14 +54,34 @@ public class LoginDaoImpl implements LoginDao {
 
     @Override
     @Transactional
-    public List cus(int id) {
-        DetachedCriteria criteria;
-        if (id > 10000 && id < 20000) {
-            criteria = CriteriaUtil.criteria(id);
-            criteria.add(Restrictions.eq("empId", id));
-        }else {
-            criteria = CriteriaUtil.criteria(id - 10000);
+    public boolean perf(int id) {
+        double score;
+        switch (id/1000){
+            case 11:
+                AssetEmp assetEmp = this.getHibernateTemplate().get(AssetEmp.class,id);
+                score = this.getHibernateTemplate().get(Performance.class,1).getScore();
+                return (assetEmp.getPerform()>score);
+            case 12:
+                LiaEmp liaEmp = this.getHibernateTemplate().get(LiaEmp.class,id);
+                score = this.getHibernateTemplate().get(Performance.class,2).getScore();
+                return (liaEmp.getPerform()>score);
+            case 13:
+                MiddleEmp middleEmp = this.getHibernateTemplate().get(MiddleEmp.class,id);
+                score = this.getHibernateTemplate().get(Performance.class,3).getScore();
+                return (middleEmp.getPerform()>score);
+            case 14:
+                PersonEmp personEmp = this.getHibernateTemplate().get(PersonEmp.class,id);
+                score = this.getHibernateTemplate().get(Performance.class,4).getScore();
+                return personEmp.getPerform()>score;
         }
+        return true;
+    }
+
+    @Override
+    public List perflist(int id) {
+        DetachedCriteria criteria = CriteriaUtil.Emp(id-10000);
+        int score = (int)this.getHibernateTemplate().get(Performance.class,id/1000-20).getScore();
+        criteria.add(Restrictions.lt("perform",score));
         return this.getHibernateTemplate().findByCriteria(criteria);
     }
 

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="/anchor/css/tableStyle.css">
+    <!-- 引入bootstrap样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入bootstrap-table样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+
+    <!-- jquery -->
+    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- bootstrap-table.min.js -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <!-- 引入中文语言包 -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+</head>
+<body>
+<div class="row">
+
+    <div class="title">
+        <h4 class="title_txt">绩效管理</h4>
+        <img class="title_img" src="/img/title_img.png" alt="">
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover">
+
+            <tr><th class="info" colspan="6">绩效编辑</th></tr>
+
+            <tr><td class="active col-md-4" >科室编号</td><td id="id" colspan="2"></td></tr>
+
+            <tr><td class="active col-md-2">对公存款</td><td id="perf1" class="change col-md-4"></td><td>%</td></tr>
+
+            <tr><td class="active col-md-2" >考勤</td><td id="attendence" class="change col-md-4"></td><td>%</td></tr>
+
+            <tr><td class="active col-md-2" >目标</td><td id="score" class="change col-md-4" colspan="2"></td></tr>
+
+            <tr><td class="active col-md-4" >结算日期</td><td id="check_date" class="change col-md-4" colspan="2"></td></tr>
+
+        </table>
+
+    </div>
+
+    <div class="submit_area"><button class="submit_button" type="submit" id="submit_btn">保存更改</button></div>
+
+</div>
+
+<script type="text/javascript">
+
+    var userobj;
+
+    $(function() {
+        $('table .change').click(function () {
+            if (!$(this).is('.input')) {
+                $(this).addClass('input').html('<input type="text" value="' + $(this).text() + '" />').find('input').focus().blur(function () {
+                    $(this).parent().removeClass('input').html($(this).val() || 0);
+                });
+            }
+        }).hover(function () {
+            $(this).addClass('hover');
+        }, function () {
+            $(this).removeClass('hover');
+        });
+
+        $('table .change2').click(function () {
+            if (!$(this).is('.input')) {
+                $(this).addClass('input').html('<input type="text" value="' + $(this).text() + '" />').find('input').focus().blur(function () {
+                    $(this).parent().removeClass('input').html($(this).val() || 0);
+                });
+            }
+        }).hover(function () {
+            $(this).addClass('hover');
+        }, function () {
+            $(this).removeClass('hover');
+        });
+    });
+
+
+    $('#submit_btn').click(function(){
+        var check_date = $('#check_date').text().split("-");
+        var performance = {
+            "room":$('#id').text(),
+            "perf1":parseFloat($('#perf1').text())/100,
+            "attendence":parseFloat($('#attendence').text())/100,
+            "score":parseInt($('#score').text()),
+            "testdate":new Date(check_date[0],check_date[1]-1,check_date[2])
+        };
+        var sum=0;
+        var perf1=parseInt($('#perf1').text());
+        if (!isNaN(perf1)) {sum=sum+perf1;}
+        var atten=parseInt($('#attendence').text());
+        if (!isNaN(atten)) {sum=sum+atten;}
+
+        if (sum==100) {
+            $.ajax({
+                url:'/mng/perfup',  //url地址替换
+                type:'post',
+                data:JSON.stringify(performance),
+                contentType:"application/json",
+                datatype:'json',
+                success:function(data){
+                    alert(data);
+                }
+            });
+        } else{
+            alert("绩效占比和不为100%");
+        }
+    });
+
+
+    $(document).ready(function() {
+        parent.window.perf();
+        setTimeout(function () {
+            var userobj = window.parent.res;
+            $('.table #id').text(userobj.room);
+            $('.table #perf1').text(userobj.perf1*100);
+            $('.table #attendence').text(userobj.attendence*100);
+            $('.table #score').text(userobj.score);
+            $('.table #check_date').text(new Date(userobj.testdate).Format("yyyy-MM-dd"));
+        },200);
+    });
+
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

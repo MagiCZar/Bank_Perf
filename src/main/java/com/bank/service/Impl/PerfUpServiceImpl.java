@@ -1,5 +1,6 @@
 package com.bank.service.Impl;
 
+import com.bank.bean.Perf;
 import com.bank.bean.Performance;
 import com.bank.dao.PerfDao;
 import com.bank.service.PerfUpService;
@@ -29,7 +30,12 @@ public class PerfUpServiceImpl implements PerfUpService {
 
     @Override
     public Performance perfload(int id) {
-        return perfDao.perfload(id/1000-20);
+            return perfDao.perfload(id / 1000 - 20);
+    }
+
+    @Override
+    public Perf EmpPerfLoad(int id) {
+        return perfDao.empPerfLoad(id);
     }
 
     private final PerfDao perfDao;

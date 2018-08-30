@@ -32,16 +32,14 @@ public class LoginController {
         login.setPassword(password);
         int result = loginService.login(login);
         if (result > 0){
-//            model = new ModelAndView("redirect:/success");
             if (id > 10000 && id < 20000){
                 loginService.sign(id);
                 model.setViewName("EmpMainpage.jsp");
-//                System.out.println(list);
             }else {
                 model.setViewName("MngMainpage.jsp");
             }
+            model.addObject("perf",loginService.perf(id));
             model.addObject("id",id);
-//            System.out.println("\n \t提交表单\n");
             return model;
         }else {
             model.setViewName("login.jsp");
@@ -49,17 +47,6 @@ public class LoginController {
             return model;
         }
     }
-
-//    @RequestMapping("/success/{id}")
-//    public ModelAndView success(@PathVariable String id,ModelAndView modelAndView){
-//        modelAndView.setViewName("success");
-//        modelAndView.addObject("id",id);
-//        int uid = Integer.parseInt(id);
-//        System.out.println(uid);
-//        List<List<String>> list = ListUtil.listTrans(uid,loginService.cus(uid));
-//        modelAndView.addObject("list",list);
-//        return modelAndView;
-//    }
 
 
     private final LoginService loginService;
