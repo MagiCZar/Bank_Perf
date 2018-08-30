@@ -47,14 +47,6 @@ To change this template use File | Settings | File Templates.
 
 <!--侧栏-->
 <div class="side-bar">
-    <div class="logobox">
-        <a href="index.html" class="banklogo">
-            <img src="img/banklogo3.png" alt="">
-        </a>
-        <a href="index.html" class="banklogo2">
-            <img src="img/banklogo2.png" alt="">
-        </a>
-    </div>
 
     <div class="welcome"><p>${id}</p></div>
 
